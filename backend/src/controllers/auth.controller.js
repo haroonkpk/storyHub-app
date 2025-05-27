@@ -25,6 +25,7 @@ export const signup = async (req, res) => {
     await user.save();
     res.status(201).json({ user });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -44,7 +45,6 @@ export const login = async (req, res) => {
      return res.status(400).json({ message: "password incorrect" });
     }
     generateToken(userExists._id, res);
-    console.log(res);
     res.status(201).json({
       _id: userExists._id,
       username: userExists.username,
@@ -65,5 +65,6 @@ export const logout = (req, res) => {
 };
 
 export const checkAuth = (req, res) => {
+  console.log(req.user);
   res.send("User is authenticated");
 };
