@@ -60,7 +60,7 @@ export const logout = (req, res) => {
     res.cookie("jwt", "",{maxAge: 0 })
     res.status(201).json({message: "User sucsissfully "});
   } catch(error){
-    res.status(500).json({massege: "err in logout route"})
+    res.status(500).json({massege: "error in logout route"})
   }
 };
 
