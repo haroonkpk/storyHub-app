@@ -64,7 +64,20 @@ export const logout = (req, res) => {
   }
 };
 
-export const checkAuth = (req, res) => {
-  console.log(req.user);
-  res.send("User is authenticated");
+export const checkAuth = async (req, res) => {
+  if (!req.user) {
+    return res.status(401).json({ message: "Not authenticated" });
+  }
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.status(200).json({
+      userId:user._id,
+      username: user.username,
+      email: user.email,
+      createdAt: user.createdAt
+
+    })
+  } catch (error) {
+    res.status(500).json({ message: "Server error in checkAuth Route" });
+  }
 };
