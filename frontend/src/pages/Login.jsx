@@ -1,5 +1,6 @@
-import {Eye, EyeOff} from "lucide-react";
+import {Eye, EyeOff, Loader} from "lucide-react";
 import { Link } from "react-router-dom";
+import VideoForSide from "../components/login.video";
 
 
 export default function Login() {
@@ -81,14 +82,14 @@ export default function Login() {
             className="btn btn-accent min-w-[3rem] max-w-full w-[20rem] mx-auto"
             type=""
           >
-            {/* {isSigningUp ? (
+            {true ? (
               <>
                 <Loader className=" size-5 animate-spin " />
                 Signing up...
               </>
             ) : (
               "Sign up"
-            )} */}
+            )}
           </button>
         </form>
         <div className="text-gray-500">
@@ -108,9 +109,8 @@ export default function Login() {
         </div>
       </div>
       {/* img */}
-      <div className="hidden sm:block w-full min-w-1/2 h-full flex items-center justify-center">
-        <img className="w-full h-full object-cover" src="/tree.png" alt="" />
-      </div>
+      <VideoForSide/>
+      
     </div>
   );
 }

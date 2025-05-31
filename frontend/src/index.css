@@ -1,2 +1,8 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" ;
+@plugin "daisyui" {
+    themes: dark --default, dark --prefersdark;}
+
+input::placeholder {
+    color: #999;
+}
