@@ -1,14 +1,34 @@
-import { Eye, EyeOff, Loader } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Eye, EyeOff, LoaderPinwheel } from "lucide-react";
+import { Link, Navigate } from "react-router-dom";
 import VideoForSide from "../components/login.video";
+import { useEffect, useState } from "react";
+import { useAuthStore } from "../stores/auth.store.js";
 
 export default function SignUp() {
+  const { UserSignUp, authUser, isSignuping } = useAuthStore();
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    UserSignUp(formData);
+  }
+  if (authUser) {
+    return <Navigate to="/" />;
+  }
+  console.log("Auth User:", authUser);
   return (
     <div className="w-full h-screen flex items-center">
       {/* signup */}
-      <div className="w-full min-w-1/2 space-y-8  text-center mb-8">
+      <div className="w-full min-w-1/2 border-r-1 border-base-300 space-y-8  text-center mb-8">
         {/* form */}
-        <form className="space-y-6 flex flex-col items-center">
+        <form
+          className="space-y-6 flex flex-col items-center"
+          onSubmit={handleSubmit}
+        >
           {/* avatar and welcome text */}
           <div className="w-full space-x-2 h-auto flex items-center justify-center mb-8">
             <div className="avatar w-15 h-15 rounded-full overflow-hidden">
@@ -45,7 +65,15 @@ export default function SignUp() {
                 <circle cx="12" cy="7" r="4"></circle>
               </g>
             </svg>
-            <input type="text" required placeholder="Username" />
+            <input
+              type="text"
+              required
+              value={formData.username}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
+              placeholder="Username"
+            />
           </label>
           <label className="input ">
             <svg
@@ -64,7 +92,15 @@ export default function SignUp() {
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
               </g>
             </svg>
-            <input type="email" placeholder="haroon@gmail.com" required />
+            <input
+              type="email"
+              placeholder="haroon@gmail.com"
+              required
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+            />
           </label>
           <label className="input ">
             <svg
@@ -87,18 +123,22 @@ export default function SignUp() {
               type={false ? "text" : "password"}
               required
               placeholder="Password"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
             />
-            <button type="button" className="text-gray-500">
+            <button type="" className="text-gray-500">
               {true ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </label>
           <button
-            className="btn bg-amber-300 min-w-[3rem] max-w-full w-[20rem] mx-auto"
-            type=""
+            className="btn bg-amber-300 text-black min-w-[3rem] max-w-full w-[20rem] mx-auto"
+            type="submit"
           >
-            {true ? (
+            {isSignuping ? (
               <>
-                <Loader className=" size-5 animate-spin " />
+                <LoaderPinwheel className=" size-5 animate-spin " />
                 Signing up...
               </>
             ) : (
@@ -107,7 +147,7 @@ export default function SignUp() {
           </button>
         </form>
         <div className="text-gray-500">
-          Don'n have an account?{" "}
+          Already have an account.{" "}
           <Link to="/login" className="link link-accent">
             Login
           </Link>
@@ -123,7 +163,7 @@ export default function SignUp() {
         </div>
       </div>
       {/* img */}
-      <VideoForSide/>
+      <VideoForSide />
     </div>
   );
 }

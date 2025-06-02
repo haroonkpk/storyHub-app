@@ -1,8 +1,12 @@
 @import "tailwindcss";
-@plugin "daisyui" ;
+@plugin "daisyui";
 @plugin "daisyui" {
-    themes: dark --default, dark --prefersdark;}
+    themes: winter --default, dracula --prefersdracula;}
 
 input::placeholder {
     color: #999;
 }
+/* body {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    direction: rtl;
+} */

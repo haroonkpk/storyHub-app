@@ -1,15 +1,31 @@
-import {Eye, EyeOff, Loader} from "lucide-react";
+import { Eye, EyeOff, LoaderPinwheel } from "lucide-react";
 import { Link } from "react-router-dom";
 import VideoForSide from "../components/login.video";
-
+import { useAuthStore } from "../stores/auth.store.js";
+import { useState } from "react";
 
 export default function Login() {
+  const { UserLogin, authUser, isLogining } = useAuthStore();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [isShowPassword, setIsShowPassword] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    UserLogin(formData);
+  }
+
   return (
     <div className="w-full h-screen flex items-center">
       {/* signup */}
-      <div className="w-full min-w-1/2 space-y-8  text-center mb-8">
+      <div className="w-full min-w-1/2 space-y-8 border-r-1 border-base-300 text-center mb-8">
         {/* form */}
-        <form className="space-y-6 flex flex-col items-center">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6 flex flex-col items-center"
+        >
           {/* avatar and welcome text */}
           <div className="w-full space-x-2 h-auto flex items-center justify-center mb-8">
             <div className="avatar w-15 h-15 rounded-full overflow-hidden">
@@ -48,7 +64,15 @@ export default function Login() {
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
               </g>
             </svg>
-            <input type="email" placeholder="haroon@gmail.com" required />
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              placeholder="haroon@gmail.com"
+              required
+            />
           </label>
 
           <label className="input ">
@@ -69,26 +93,34 @@ export default function Login() {
               </g>
             </svg>
             <input
-              type={false ? "text" : "password"}
+              type={isShowPassword ? "text" : "password"}
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
               required
               placeholder="Password"
             />
-            <button type="button" className="text-gray-500">
-              {true ? <EyeOff size={20} /> : <Eye size={20} />}
+            <button
+              type="button"
+              onClick={() => setIsShowPassword(!isShowPassword)}
+              className="text-gray-500"
+            >
+              {isShowPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </label>
 
           <button
-            className="btn btn-accent min-w-[3rem] max-w-full w-[20rem] mx-auto"
-            type=""
+            className="btn bg-amber-300 text-black   min-w-[3rem] max-w-full w-[20rem] mx-auto"
+            type="submit"
           >
-            {true ? (
+            {isLogining ? (
               <>
-                <Loader className=" size-5 animate-spin " />
-                Signing up...
+                <LoaderPinwheel className=" size-5 animate-spin " />
+                login up...
               </>
             ) : (
-              "Sign up"
+              "Login"
             )}
           </button>
         </form>
@@ -109,8 +141,7 @@ export default function Login() {
         </div>
       </div>
       {/* img */}
-      <VideoForSide/>
-      
+      <VideoForSide />
     </div>
   );
 }
