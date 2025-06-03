@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Navigate, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
+import toast, { Toaster } from "react-hot-toast";
+import { useAuthStore } from "./stores/auth.store.js";
+import { useEffect, useState } from "react";
+import { LoaderPinwheel } from "lucide-react";
+import Navbar from "./components/Navbar.jsx";
+import { useThemeStore } from "./stores/theme.store.js";
+import Footer from "./components/Footer.jsx";
+import { useLocation } from "react-router-dom";
+import Admin from "./pages/Admin.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const location = useLocation();
+  
 
+  const { authUser, checkingAuth, isCheckingAuth } = useAuthStore();
+  const { theme } = useThemeStore();
+
+  useEffect(() => {
+    document.querySelector("html").setAttribute("data-theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    checkingAuth();
+  }, [checkingAuth]);
+
+  if (isCheckingAuth)
+    return (
+      <div className="flex justify-center items-center w-full h-screen">
+        <LoaderPinwheel className="size-10 animate-spin duration-100" />
+      </div>
+    );
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="min-h-screen bg-base-200 relative overflow-auto">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/signup"
+          element={!authUser ? <SignUp /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/login"
+          element={!authUser ? <Login /> : <Navigate to="/" />}
+        />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/admin-dashboard" element={authUser?.role=== "admin"? <Admin /> : <Navigate to="/" />} />
+
+      </Routes>
+      <Toaster position="top-center" reverseOrder={true} />
+      {!(location.pathname === "/login" || location.pathname === "/signup")  && <Footer />}
+    </div>
+  );
 }
 
-export default App
+export default App;

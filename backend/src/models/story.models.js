@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
-
+import User from "./user.model.js";
 const storySchema = new mongoose.Schema({
+    author:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
     img: String,
     title: {
         type: String,
