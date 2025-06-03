@@ -1,10 +1,4 @@
-import {
-  User,
-  HomeIcon,
-  ContactRound,
-  LogIn,
-  Feather,
-} from "lucide-react";
+import {  HomeIcon, ContactRound, LogIn, Feather, UserCircle, UserCog2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../stores/auth.store.js";
 import { useThemeStore } from "../stores/theme.store.js";
@@ -50,7 +44,7 @@ export default function Navbar() {
 
             {authUser ? (
               <>
-                <Link to="">
+                
                   <button
                     variant="ghost"
                     className="flex items-center space-x-2 btn-ghost btn transition-all mr-2.5 rounded-2xl"
@@ -58,12 +52,22 @@ export default function Navbar() {
                       document.getElementById("my_modal_3").showModal()
                     }
                   >
-                    <User size={20} />{" "}
+                    <UserCircle size={20} />{" "}
                     <span className="hidden sm:block">Profile</span>
                   </button>
-                </Link>
-
+                
                 <Profile />
+                {authUser?.role === "admin" && (
+                  <Link to="/admin-dashboard">
+                    <button
+                      variant="ghost"
+                      className="flex items-center space-x-2 btn-ghost btn transition-all mr-2.5 rounded-2xl"
+                    >
+                      <UserCog2Icon size={20} />{" "}
+                      <span className="hidden sm:block">Admin</span>
+                    </button>
+                  </Link>
+                )}
               </>
             ) : (
               <Link to="/login">

@@ -79,6 +79,7 @@ export const checkAuth = async (req, res) => {
       userId:user._id,
       username: user.username,
       email: user.email,
+      role: user.role,
       createdAt: user.createdAt
 
     })

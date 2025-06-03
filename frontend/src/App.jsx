@@ -10,16 +10,19 @@ import { LoaderPinwheel } from "lucide-react";
 import Navbar from "./components/Navbar.jsx";
 import { useThemeStore } from "./stores/theme.store.js";
 import Footer from "./components/Footer.jsx";
+import { useLocation } from "react-router-dom";
+import Admin from "./pages/Admin.jsx";
 
 function App() {
-  const { authUser, checkingAuth, isCheckingAuth } = useAuthStore();
-  const { theme} = useThemeStore();
+  const location = useLocation();
+  
 
+  const { authUser, checkingAuth, isCheckingAuth } = useAuthStore();
+  const { theme } = useThemeStore();
 
   useEffect(() => {
     document.querySelector("html").setAttribute("data-theme", theme);
   }, [theme]);
-
 
   useEffect(() => {
     checkingAuth();
@@ -45,9 +48,11 @@ function App() {
           element={!authUser ? <Login /> : <Navigate to="/" />}
         />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/admin-dashboard" element={authUser?.role=== "admin"? <Admin /> : <Navigate to="/" />} />
+
       </Routes>
       <Toaster position="top-center" reverseOrder={true} />
-      <Footer />
+      {!(location.pathname === "/login" || location.pathname === "/signup")  && <Footer />}
     </div>
   );
 }
