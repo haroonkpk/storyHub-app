@@ -48,11 +48,17 @@ function App() {
           element={!authUser ? <Login /> : <Navigate to="/" />}
         />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/admin-dashboard" element={authUser?.role=== "admin"? <Admin /> : <Navigate to="/" />} />
-
+        <Route
+          path="/admin-dashboard"
+          element={authUser?.role === "admin" ? <Admin /> : <Navigate to="/" />}
+        />
       </Routes>
       <Toaster position="top-center" reverseOrder={true} />
-      {!(location.pathname === "/login" || location.pathname === "/signup")  && <Footer />}
+      {!(
+        location.pathname === "/login" ||
+        location.pathname === "/signup" ||
+        location.pathname === "/admin-dashboard"
+      ) && <Footer />}
     </div>
   );
 }
