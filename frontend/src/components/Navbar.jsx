@@ -38,6 +38,7 @@ export default function Navbar() {
                 className="flex items-center rounded-2xl space-x-2 btn-ghost btn transition-all mr-2.5"
               >
                 <ContactRound size={20} />{" "}
+                
                 <span className="hidden sm:block">about</span>
               </button>
             </Link>

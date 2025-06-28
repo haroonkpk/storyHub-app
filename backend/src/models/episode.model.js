@@ -18,6 +18,6 @@ const episodeSchema = new mongoose.Schema({
   },
 });
 
-const Episode = mongoose.model("Epesode", episodeSchema);
+const Episode = mongoose.model("Episode", episodeSchema);
 
 export default Episode;

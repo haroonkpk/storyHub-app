@@ -1,6 +1,5 @@
 import React from "react";
-import StoryBox from "../components/StoryBox";
-
+import StoryBox from "../components/StoryTypesBox";
 export default function HomePage() {
   return (
     <div className="flex flex-col  justify-center items-center">
@@ -24,8 +23,7 @@ export default function HomePage() {
         </div>
       </div>
       {/* story box */}
-      <StoryBox/>
-      
+      <StoryBox />
     </div>
   );
 }
