@@ -1,6 +1,7 @@
 import express from "express";
 import {
   episodes,
+  getEpisodeById,
   getEpisodes,
   getStories,
   getStoryTypes,
@@ -14,6 +15,7 @@ const router = express.Router();
 router.get("/getStoryTypes", protectedRoute, getStoryTypes);
 router.get("/stories/:typeId", protectedRoute, getStories);
 router.get("/episodes/:storyId", protectedRoute, getEpisodes);
+router.get("/episode/:episodeId", protectedRoute, getEpisodeById);
 
 // create type, story and
 router.post("/storyTypes", protectedRoute, storyTypes);

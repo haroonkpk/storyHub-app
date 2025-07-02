@@ -14,6 +14,7 @@ import { useLocation } from "react-router-dom";
 import Admin from "./pages/Admin.jsx";
 import StoriesPage from "./pages/StoriesPage.jsx";
 import EpisodePage from "./pages/EpisodePage.jsx";
+import EpisodeDetail from "./pages/EpisodeDetail.jsx";
 
 function App() {
   const location = useLocation();
@@ -49,20 +50,15 @@ function App() {
           path="/login"
           element={!authUser ? <Login /> : <Navigate to="/" />}
         />
-        <Route
-          path="/stories/:typeId"
-          element={<StoriesPage /> }
-        />
-        <Route
-          path="/episodes/:storyId"
-          element={<EpisodePage /> }
-        />
+        <Route path="/stories/:typeId" element={<StoriesPage />} />
+        <Route path="/episodes/:storyId" element={<EpisodePage />} />
 
         <Route path="/about" element={<AboutPage />} />
         <Route
           path="/admin-dashboard"
           element={authUser?.role === "admin" ? <Admin /> : <Navigate to="/" />}
         />
+        <Route path="/episode/:episodeId" element={<EpisodeDetail />} />
       </Routes>
       <Toaster position="top-center" reverseOrder={true} />
       {!(

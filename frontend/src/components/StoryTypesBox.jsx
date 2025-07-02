@@ -1,15 +1,12 @@
 import StoryCard from "./storyCard.jsx";
 import { useStoryStore } from "../stores/story.store.js";
 import { useEffect } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
+import EpisodeCard from "./EpisodeCard.jsx";
 
 export default function StoryBox() {
-  const {
-    getStoryTypes,
-    setSlectedTypes,
-    storyTypes,
-    getSelectedTypesStory,
-  } = useStoryStore();
+  const { getStoryTypes, setSlectedTypes, storyTypes, getSelectedTypesStory } =
+    useStoryStore();
 
   useEffect(() => {
     getStoryTypes();
@@ -31,8 +28,10 @@ export default function StoryBox() {
           Most played songs this week
         </li>
         {storyTypes.map((type, index) => (
-          <Link to={`/stories/${type._id}`} key={index} >
-            <StoryCard type={type} />
+          <Link to={`/stories/${type._id}`} key={index + 1}>
+            <div className="flex flex-wrap justify-items-center">
+              <EpisodeCard episode={type} />
+            </div>
           </Link>
         ))}
       </ul>

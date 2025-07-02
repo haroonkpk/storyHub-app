@@ -6,6 +6,7 @@ export const useStoryStore = create((set) => ({
   selectedTypes: null,
   stories: [],
   episodes: [],
+  episode:{},
 
   getStoryTypes: async () => {
     try {
@@ -27,7 +28,10 @@ export const useStoryStore = create((set) => ({
 
   getEpisodesByStoryId: async (storyID) => {
     const res = await axiosInstance.get(`/story/episodes/${storyID}`);
-    set({ episodes : res.data.episodes});
-    
+    set({ episodes: res.data.episodes });
+  },
+  getEpisodeById: async (episodeId) => {
+    const res = await axiosInstance.get(`/story/episode/${episodeId}`);
+    set({ episode: res.data.episode });
   },
 }));
