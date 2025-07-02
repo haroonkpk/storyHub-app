@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useStoryStore } from "../stores/story.store";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import EpisodeCard from "../components/EpisodeCard";
+import { ArrowLeft } from "lucide-react";
 
 export default function EpisodePage() {
   const { storyId } = useParams();
@@ -13,9 +14,23 @@ export default function EpisodePage() {
 
   const navigate = useNavigate();
   return (
-    <div className="flex flex-wrap justify-center items-center gap-8 p-4">
+    <div className="flex bg-base-300 flex-wrap justify-center items-center gap-8 p-4">
       {episodes.length === 0 ? (
         <>
+          <button
+            onClick={() => {
+              if (window.history.length > 2) {
+                navigate(-1);
+              } else {
+                navigate("/");
+              }
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="mb-6 flex items-center gap-2 text-blue-600 hover:text-blue-800 transition"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            Go Back
+          </button>
           <div className="flex flex-col justify-center items-center text-center py-10">
             <img
               src="https://cdn-icons-png.flaticon.com/512/4076/4076504.png"
@@ -33,9 +48,9 @@ export default function EpisodePage() {
         </>
       ) : (
         episodes?.map((ep, idx) => (
-          <div className="min-h-screen  py-10 px-4">
+          <div className="min-h-screen py-10 px-4">
             <h1 className="text-3xl font-bold text-center mb-8">Episodes</h1>
-            <div className="flex items-center gap-4 p-1 pb-2 text-xs opacity-60 tracking-wide">
+            <div className="flex mb-6 items-center gap-4 p-1 pb-2 text-xs opacity-60 tracking-wide">
               <button
                 onClick={() => {
                   if (window.history.length > 2) {
@@ -43,12 +58,16 @@ export default function EpisodePage() {
                   } else {
                     navigate("/");
                   }
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
-                className="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition"
+                className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition"
               >
-                ← Go Back
+                <ArrowLeft className="w-5 h-5" />
+                Go Back
               </button>
+              <span>
               {episodes.length} episodes
+              </span>
             </div>
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
               {episodes.map((episode, index) => (

@@ -12,12 +12,6 @@ export default function StoryBox() {
     getStoryTypes();
   }, []);
 
-  function handleTypeClick(typeId) {
-    getSelectedTypesStory(typeId);
-  }
-  function handleSetSlectedTypes() {
-    setSlectedTypes();
-  }
   return (
     <div className="bg-base-300 rounded-box shadow-md w-full max-w-6xl p-6">
       <div className="flex justify-center items-center">
@@ -28,7 +22,7 @@ export default function StoryBox() {
           Most played songs this week
         </li>
         {storyTypes.map((type, index) => (
-          <Link to={`/stories/${type._id}`} key={index + 1}>
+          <Link to={`/stories/${type._id}`}  key={index + 1}>
             <div className="flex flex-wrap justify-items-center">
               <EpisodeCard episode={type} />
             </div>

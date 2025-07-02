@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import EpisodeCard from "../components/EpisodeCard.jsx";
+import { ArrowLeft } from "lucide-react";
 
 export default function StoryBox() {
   const { typeId } = useParams();
@@ -11,11 +12,12 @@ export default function StoryBox() {
 
   useEffect(() => {
     getStoriesByTypeId(typeId);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [typeId]);
 
   const navigate = useNavigate();
   return (
-    <div className="bg-base-300 rounded-box shadow-md w-full max-w-6xl p-6">
+    <div className="w-full p-6 bg-base-300">
       <div className="flex justify-center items-center">
         <h1 className="text-3xl font-bold ">
           {stories[0]?.type?.title} stories
@@ -31,10 +33,12 @@ export default function StoryBox() {
               } else {
                 navigate("/");
               }
+              
             }}
-            className="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition"
+            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition"
           >
-            ← Go Back
+            <ArrowLeft className="w-5 h-5" />
+            Go Back
           </button>
           {stories.length} stories in {stories[0]?.type?.title} Type
         </li>
