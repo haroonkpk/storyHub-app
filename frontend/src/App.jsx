@@ -12,6 +12,8 @@ import { useThemeStore } from "./stores/theme.store.js";
 import Footer from "./components/Footer.jsx";
 import { useLocation } from "react-router-dom";
 import Admin from "./pages/Admin.jsx";
+import StoriesPage from "./pages/StoriesPage.jsx";
+import EpisodePage from "./pages/EpisodePage.jsx";
 
 function App() {
   const location = useLocation();
@@ -47,6 +49,15 @@ function App() {
           path="/login"
           element={!authUser ? <Login /> : <Navigate to="/" />}
         />
+        <Route
+          path="/stories/:typeId"
+          element={<StoriesPage /> }
+        />
+        <Route
+          path="/episodes/:storyId"
+          element={<EpisodePage /> }
+        />
+
         <Route path="/about" element={<AboutPage />} />
         <Route
           path="/admin-dashboard"

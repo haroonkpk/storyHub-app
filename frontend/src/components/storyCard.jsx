@@ -3,8 +3,8 @@ import {motion} from "framer-motion"
 export default function StoryCard({type}) {
   return (
     <motion.div
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      // whileHover={{ scale: 1.05 }}
+      // whileTap={{ scale: 0.95 }}
       className="card card-sm bg-base-100 shadow-sm cursor-pointer group"
     >
       <figure>

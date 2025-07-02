@@ -10,23 +10,24 @@ export const useStoryStore = create((set) => ({
   getStoryTypes: async () => {
     try {
       const res = await axiosInstance.get("/story/getStoryTypes");
-      console.log(res.data.allStoryTypes);
       set({ storyTypes: res.data.allStoryTypes });
     } catch (error) {
       console.log("error in get storytypes");
     }
   },
 
-  getSelectedTypesStory: async (typeId) => {
+  getStoriesByTypeId: async (typeId) => {
     try {
       const res = await axiosInstance.get(`/story/stories/${typeId}`);
-      set({selectedTypes:typeId ,stories: res.data.selectedTypeStory });
+      set({ stories: res.data.stories });
     } catch (error) {
       console.log("error in get story", error);
     }
   },
 
-  setSlectedTypes:()=>{
-    set({selectedTypes:null})
-  }
+  getEpisodesByStoryId: async (storyID) => {
+    const res = await axiosInstance.get(`/story/episodes/${storyID}`);
+    set({ episodes : res.data.episodes});
+    
+  },
 }));

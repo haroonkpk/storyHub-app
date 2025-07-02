@@ -62,16 +62,11 @@ export const episodes = async (req, res) => {
       story: storyId,
     });
     await episode.save();
-    const populatedEpisode = await Episode.findById(episode._id).populate(
-      "story"
-    );
 
-    res
-      .status(201)
-      .json({
-        message: "episode created successfully",
-        episode: populatedEpisode,
-      });
+    res.status(201).json({
+      message: "episode created successfully",
+      episode,
+    });
   } catch (error) {
     res.status(500).json({ message: "error in creating episode", error });
   }
@@ -85,37 +80,43 @@ export const getStoryTypes = async (req, res) => {
     res.status(501).json({ message: "error in getStoryType route", error });
   }
 };
-export const getStory = async (req, res) => {
+
+export const getStories = async (req, res) => {
   const { typeId } = req.params;
   if (!typeId) {
     return res.status(404).json({ message: "Not found typeId" });
   }
   try {
-    const selectedTypeStory = await Story.find({
-      type: new mongoose.Types.ObjectId(typeId),
-    });
-    if (!selectedTypeStory) {
-      return res.status(404).json({ message: "stories not found" });
+    const stories = await Story.find({ type: typeId }).populate(
+      "type",
+      "title"
+    );
+
+    if (stories.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No stories found for this type" });
     }
-    res.status(201).json({ selectedTypeStory });
+
+    res.status(200).json({ stories });
   } catch (error) {
     console.error("GetStory Error:", error.message);
     res.status(501).json({ message: "error in getStory route", error });
   }
 };
+
 export const getEpisodes = async (req, res) => {
   const { storyId } = req.params;
   if (!storyId) {
     return res.status(404).json({ message: "Not found storyId" });
   }
   try {
-    const selectedStoryEpisode = await Episode.find({
-      story: new mongoose.Types.ObjectId(storyId),
-    });
-    if (!selectedStoryEpisode) {
-      return res.status(404).json({ message: "episode not found" });
+    const episodes = await Episode.find({ story: storyId });
+    if (!episodes) {
+      return res.status(404).json({ message: "episodes not found" });
     }
-    res.status(201).json({ message: "get episodes", selectedStoryEpisode });
+    res.status(200).json({ message: "get episodes", episodes });
+
   } catch (error) {
     console.error("GetEpisodes Error:", error.message);
     res.status(501).json({ message: "error in getEpisode route", error });
