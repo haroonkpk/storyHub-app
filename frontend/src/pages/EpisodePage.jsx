@@ -13,7 +13,7 @@ export default function EpisodePage() {
   }, [storyId]);
 
   const navigate = useNavigate();
-  return (
+  return ( 
     <div className="flex bg-base-300 flex-wrap justify-center items-center gap-8 p-4">
       {episodes.length === 0 ? (
         <>

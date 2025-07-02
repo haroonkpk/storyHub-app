@@ -12,7 +12,10 @@ export default function EpisodeCard({ episode, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <img
+      <motion.img
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.6 }}
         src="/gar.jpg"
         alt={episode.title}
         className="w-full h-48 object-cover rounded-xl mb-4"
@@ -22,8 +25,22 @@ export default function EpisodeCard({ episode, index }) {
           Ep {index + 1}
         </div>
       )}
-      <h2 className="text-xl font-bold mb-2">{episode.title}</h2>
-      <p className="text-gray-600">{episode.description}</p>
+      <motion.h2
+        initial={{ opacity: 0, x: -30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.5, duration: 0.6 }}
+        className="text-xl font-bold mb-2"
+      >
+        {episode.title}
+      </motion.h2>
+      <motion.p
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.5, duration: 0.6 }}
+        className="text-gray-600"
+      >
+        {episode.description}
+      </motion.p>
     </motion.div>
   );
 }

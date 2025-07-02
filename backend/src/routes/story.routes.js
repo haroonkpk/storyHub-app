@@ -12,10 +12,10 @@ import { protectedRoute } from "../middleware/auth.middleware.js";
 const router = express.Router();
 
 // get type, story and episode
-router.get("/getStoryTypes", protectedRoute, getStoryTypes);
-router.get("/stories/:typeId", protectedRoute, getStories);
-router.get("/episodes/:storyId", protectedRoute, getEpisodes);
-router.get("/episode/:episodeId", protectedRoute, getEpisodeById);
+router.get("/getStoryTypes", getStoryTypes);
+router.get("/stories/:typeId", getStories);
+router.get("/episodes/:storyId", getEpisodes);
+router.get("/episode/:episodeId", getEpisodeById);
 
 // create type, story and
 router.post("/storyTypes", protectedRoute, storyTypes);
