@@ -25,7 +25,7 @@ export default function EpisodeDetail() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-base-300 p-4 md:p-10">
+    <div className="min-h-screen bg-base-300 p-1 md:p-10">
       {/* Back Button */}
       <button
         onClick={() => {
@@ -47,7 +47,7 @@ export default function EpisodeDetail() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="grid md:grid-cols-2 gap-8 bg-base-200 p-6 rounded-3xl shadow-xl overflow-hidden"
+        className="grid md:grid-cols-2 gap-8 bg-base-200 p-1 lg:p-6 rounded-3xl shadow-xl overflow-hidden"
       >
         {/* Image */}
         <motion.div
@@ -70,10 +70,10 @@ export default function EpisodeDetail() {
           transition={{ delay: 0.5, duration: 0.6 }}
           className="flex flex-col"
         >
-          <h1 ref={contentRef} className="text-4xl font-bold  mb-4">
+          <h1 ref={contentRef} className="text-xl lg:text-4xl font-bold  mb-4">
             {episode.title}
           </h1>
-          <p className="text-lg leading-8 whitespace-pre-line tracking-wide">
+          <p className="text-lg leading-8 whitespace-pre-line tracking-wide text-right">
             چاندنی راتوں میں نظر آتا۔ یہ سایہ نہ انسان لگتا تھا، نہ جانور۔ ایک
             رات، لڑکا ہمت کر کے اُس سایے کے پیچھے گیا۔ سایہ اُسے گاؤں کے پرانے
             کنویں کی طرف لے گیا جہاں کئی سال پہلے ایک لڑکی کے لاپتہ ہونے کی
