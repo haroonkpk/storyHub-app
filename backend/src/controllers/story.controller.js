@@ -116,7 +116,22 @@ export const getEpisodes = async (req, res) => {
       return res.status(404).json({ message: "episodes not found" });
     }
     res.status(200).json({ message: "get episodes", episodes });
-
+  } catch (error) {
+    console.error("GetEpisodes Error:", error.message);
+    res.status(501).json({ message: "error in getEpisode route", error });
+  }
+};
+export const getEpisodeById = async (req, res) => {
+  const { episodeId } = req.params;
+  if (!episodeId) {
+    return res.status(404).json({ message: "Not found episodeId" });
+  }
+  try {
+    const episode = await Episode.findById(episodeId);
+    if (!episode) {
+      return res.status(404).json({ message: "episodes not found" });
+    }
+    res.status(200).json({ message: "get episode", episode });
   } catch (error) {
     console.error("GetEpisodes Error:", error.message);
     res.status(501).json({ message: "error in getEpisode route", error });

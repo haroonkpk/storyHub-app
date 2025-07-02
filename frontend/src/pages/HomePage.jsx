@@ -1,8 +1,4 @@
-import React from "react";
 import StoryBox from "../components/StoryTypesBox";
-import SkillsSection from "../components/SkillsSection";
-import HeroSection from "../components/SkillsSection";
-import DevelopmentProcess from "../components/SkillsSection";
 export default function HomePage() {
   return (
     <div className="flex flex-col  justify-center items-center">
