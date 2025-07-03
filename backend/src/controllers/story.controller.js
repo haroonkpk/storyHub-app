@@ -2,16 +2,24 @@ import mongoose from "mongoose";
 import Episode from "../models/episode.model.js";
 import Story from "../models/story.models.js";
 import StoryType from "../models/storyType.model.js";
+import cloudinary from "../lib/cloudinary.js";
 
 export const storyTypes = async (req, res) => {
   const { img, title, description } = req.body;
+  
   if (!img || !title || !description) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
+  let imagUrl;
+          if(img){
+              const uploadResponse = await cloudinary.uploader.upload(img);
+              imagUrl = uploadResponse.secure_url;
+          }
+
   try {
     const Type = new StoryType({
-      img,
+      img:imagUrl,
       title,
       description,
     });

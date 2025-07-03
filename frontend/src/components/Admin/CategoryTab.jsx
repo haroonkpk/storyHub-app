@@ -1,11 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useStoryStore } from "../../stores/story.store";
 
-// Dummy data (you'll replace this with real fetch or Zustand)
-const dummyCategories = [
-  { _id: "1", name: "Horror" },
-  { _id: "2", name: "Adventure" },
-];
 
 export default function CategoryTab() {
   const [subTab, setSubTab] = useState("create");
@@ -63,20 +59,66 @@ export default function CategoryTab() {
 // ========================== FORMS ===============================
 
 function CreateCategoryForm() {
+  const [imagePreview, setImagePreview] = useState(null);
+  const { createCategory, storyTypes } = useStoryStore();
+  const [formData, setFormData] = useState({
+    img: imagePreview,
+    title: "",
+    description: "",
+  });
+
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file.type.startsWith("image/")) {
+      alert("Please select an image file");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+      setFormData((prev) => ({ ...prev, img: reader.result }));
+    };
+    reader.readAsDataURL(file);
+  };
+  const removeImage = () => {
+    setImagePreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const handelSubmitForm = (e) => {
+    e.preventDefault();
+    createCategory(formData);
+  };
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={handelSubmitForm}>
       <h2 className="text-xl font-semibold">Add New Category</h2>
       <input
         type="text"
-        placeholder="Category Name"
+        placeholder="Category title"
+        onChange={(e) =>
+          setFormData((prev) => ({ ...prev, title: e.target.value }))
+        }
+        className="input input-bordered w-full"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Category descrition"
+        value={formData.description}
+        onChange={(e) =>
+          setFormData((prev) => ({ ...prev, description: e.target.value }))
+        }
         className="input input-bordered w-full"
         required
       />
       <input
         type="file"
         accept="image/*"
+        onChange={handleImageChange}
         className="file-input file-input-bordered w-full"
-        required
       />
       <button type="submit" className="btn btn-primary">
         Create Category
@@ -86,16 +128,18 @@ function CreateCategoryForm() {
 }
 
 function DeleteCategoryList() {
+  
+  const { storyTypes } = useStoryStore();
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold">Delete Categories</h2>
       <ul className="space-y-2">
-        {dummyCategories.map((cat) => (
+        {storyTypes.map((cat) => (
           <li
             key={cat._id}
             className="flex justify-between items-center p-2 border rounded-md"
           >
-            <span>{cat.name}</span>
+            <span>{cat.title}</span>
             <button className="btn btn-sm btn-error">Delete</button>
           </li>
         ))}

@@ -2,12 +2,14 @@ import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
 
 export const useStoryStore = create((set) => ({
+  // ===========States===========
   storyTypes: [],
   selectedTypes: null,
   stories: [],
   episodes: [],
-  episode:{},
+  episode: {},
 
+  // ============funForStates=========
   getStoryTypes: async () => {
     try {
       const res = await axiosInstance.get("/story/getStoryTypes");
@@ -34,4 +36,18 @@ export const useStoryStore = create((set) => ({
     const res = await axiosInstance.get(`/story/episode/${episodeId}`);
     set({ episode: res.data.episode });
   },
+
+  // =============FunForCreation===========
+
+  createCategory: async (formData) => {
+    try {
+      console.log(formData);
+      
+      const res = await axiosInstance.post("/story/storyTypes",  formData );
+      console.log(res.data.message);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+
 }));
