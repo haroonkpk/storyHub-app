@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export const useStoryStore = create((set) => ({
   // ===========States===========
@@ -44,6 +44,16 @@ export const useStoryStore = create((set) => ({
     try {
       const res = await axiosInstance.post("/story/storyTypes", formData);
       toast.success(res.data.message);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  },
+  
+
+  createStoryByCategoryId: async (formData, typeId) => {
+    try {
+      await axiosInstance.post(`/story/story/${typeId}`, formData);
+      toast.success("story Creted");
     } catch (error) {
       toast.error(error.message);
     }

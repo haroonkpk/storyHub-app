@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { useStoryStore } from "../../stores/story.store";
 const dummyStories = [
   { _id: "1", title: "Ghost in the Wall" },
   { _id: "2", title: "Mountain Curse" },
@@ -8,6 +8,34 @@ const dummyStories = [
 
 export default function StoryTab() {
   const [subTab, setSubTab] = useState("create");
+  const [typeId, setTypeId] = useState();
+
+  const { getStoryTypes, storyTypes, createStoryByCategoryId } =
+    useStoryStore();
+
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    img: "",
+  });
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file.type.startsWith("image/")) {
+      alert("Please select an image file");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFormData((prev) => ({ ...prev, img: reader.result }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handelSubmitForm = async (e) => {
+    e.preventDefault();
+    await createStoryByCategoryId(formData, typeId);
+  };
 
   return (
     <div>
@@ -39,25 +67,49 @@ export default function StoryTab() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <form className="space-y-4">
+            <form onSubmit={handelSubmitForm} className="space-y-4">
               <h2 className="text-xl font-semibold">Add New Story</h2>
               <input
                 type="text"
                 placeholder="Story Title"
+                value={formData.title}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, title: e.target.value }))
+                }
                 className="input input-bordered w-full"
                 required
               />
               <textarea
                 placeholder="Short Description"
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    description: e.target.value,
+                  }))
+                }
                 className="textarea textarea-bordered w-full"
                 required
               ></textarea>
-              <select className="select select-bordered w-full" required>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="file-input file-input-bordered w-full"
+              />
+              <select
+                onChange={(e) => setTypeId(e.target.value)}
+                className="select select-bordered w-full"
+                required
+              >
                 <option disabled selected>
                   Choose Category
                 </option>
-                <option>Horror</option>
-                <option>Drama</option>
+                {storyTypes.map((type) => (
+                  <option key={type._id} value={type._id}>
+                    {type.title}
+                  </option>
+                ))}
               </select>
               <button type="submit" className="btn btn-primary">
                 Create Story
