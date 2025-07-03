@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
+import {toast} from "react-hot-toast";
 
 export const useStoryStore = create((set) => ({
   // ===========States===========
@@ -41,13 +42,22 @@ export const useStoryStore = create((set) => ({
 
   createCategory: async (formData) => {
     try {
-      console.log(formData);
-      
-      const res = await axiosInstance.post("/story/storyTypes",  formData );
-      console.log(res.data.message);
+      const res = await axiosInstance.post("/story/storyTypes", formData);
+      toast.success(res.data.message);
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   },
 
+  // =========funForDeletion==========
+  deleteCategory: async (storyTypeId) => {
+    try {
+      const res = await axiosInstance.delete(
+        `/story/deleteStoryType/${storyTypeId}`
+      );
+      toast.success("Type deleted");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  },
 }));

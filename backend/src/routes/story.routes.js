@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  deleteStoryType,
   episodes,
   getEpisodeById,
   getEpisodes,
@@ -23,5 +24,5 @@ router.post("/story/:typeId", protectedRoute, story);
 router.post("/episodes/:storyId", protectedRoute, episodes);
 
 //deleete routes
-router.delete("/deleteStory/:id", protectedRoute);
+router.delete("/deleteStoryType/:id", protectedRoute, deleteStoryType);
 export default router;

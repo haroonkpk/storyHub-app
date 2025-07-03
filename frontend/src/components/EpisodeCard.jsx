@@ -1,9 +1,6 @@
-// components/EpisodeCard.jsx
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 
 export default function EpisodeCard({ episode, index }) {
-  const navigate = useNavigate();
   return (
     <motion.div
       className="bg-base-200 rounded-2xl relative shadow-md p-4 max-w-md w-full"
@@ -16,7 +13,7 @@ export default function EpisodeCard({ episode, index }) {
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.6 }}
-        src="/gar.jpg"
+        src={episode.img}
         alt={episode.title}
         className="w-full h-48 object-cover rounded-xl mb-4"
       />

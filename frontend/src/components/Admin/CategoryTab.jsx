@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStoryStore } from "../../stores/story.store";
 
-
 export default function CategoryTab() {
   const [subTab, setSubTab] = useState("create");
 
@@ -60,13 +59,12 @@ export default function CategoryTab() {
 
 function CreateCategoryForm() {
   const [imagePreview, setImagePreview] = useState(null);
-  const { createCategory, storyTypes } = useStoryStore();
+  const { createCategory, getStoryTypes } = useStoryStore();
   const [formData, setFormData] = useState({
     img: imagePreview,
     title: "",
     description: "",
   });
-
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -88,9 +86,10 @@ function CreateCategoryForm() {
     }
   };
 
-  const handelSubmitForm = (e) => {
+  const handelSubmitForm = async (e) => {
     e.preventDefault();
-    createCategory(formData);
+    await createCategory(formData);
+    getStoryTypes();
   };
   return (
     <form className="space-y-4" onSubmit={handelSubmitForm}>
@@ -128,8 +127,11 @@ function CreateCategoryForm() {
 }
 
 function DeleteCategoryList() {
-  
-  const { storyTypes } = useStoryStore();
+  const { storyTypes, getStoryTypes, deleteCategory } = useStoryStore();
+  const handleDelete = async (id) => {
+    await deleteCategory(id);
+    getStoryTypes();
+  };
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold">Delete Categories</h2>
@@ -140,10 +142,16 @@ function DeleteCategoryList() {
             className="flex justify-between items-center p-2 border rounded-md"
           >
             <span>{cat.title}</span>
-            <button className="btn btn-sm btn-error">Delete</button>
+            <button
+              onClick={() => handleDelete(cat._id)}
+              className="btn btn-sm btn-error"
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
     </div>
   );
+  cat._id;
 }

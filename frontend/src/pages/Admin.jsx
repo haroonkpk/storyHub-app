@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CategoryTab from "../components/Admin/CategoryTab.jsx";
 import StoryTab from "../components/Admin/StoryTab.jsx";
 import EpisodeTab from "../components/Admin/EpisodeTab.jsx";
+import { useStoryStore } from "../stores/story.store.js";
 
 export default function AdminTabsPanel() {
   const [activeTab, setActiveTab] = useState(0);
+  const { getStoryTypes, deleteCategory } = useStoryStore();
 
+  useEffect(() => {
+    getStoryTypes();
+  }, [deleteCategory, getStoryTypes]);
+
+  
   const tabs = ["Create Category", "Create Story", "Create Episode"];
 
   const tabContentVariants = {

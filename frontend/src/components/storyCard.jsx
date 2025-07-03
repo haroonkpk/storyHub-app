@@ -10,8 +10,8 @@ export default function StoryCard({type}) {
       <figure>
         <img
           className="w-full h-48 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110 group-hover:rotate-1"
-          src="/gar.jpg"
-          alt="Movie"
+          src={type.img}
+          alt="story"
         />
       </figure>
       <div className="card-body transition-colors duration-300 ">

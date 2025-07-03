@@ -18,7 +18,6 @@ import EpisodeDetail from "./pages/EpisodeDetail.jsx";
 
 function App() {
   const location = useLocation();
-  
 
   const { authUser, checkingAuth, isCheckingAuth } = useAuthStore();
   const { theme } = useThemeStore();

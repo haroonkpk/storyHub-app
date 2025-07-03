@@ -129,6 +129,7 @@ export const getEpisodes = async (req, res) => {
     res.status(501).json({ message: "error in getEpisode route", error });
   }
 };
+
 export const getEpisodeById = async (req, res) => {
   const { episodeId } = req.params;
   if (!episodeId) {
@@ -146,16 +147,16 @@ export const getEpisodeById = async (req, res) => {
   }
 };
 
-export const deleteStory = async (req, res) => {
-  const storyId = req.params.id;
-  console.log(storyId);
+export const deleteStoryType = async (req, res) => {
+  const typeId = req.params.id;
+  console.log(typeId);
   try {
-    const deletedStory = await Story.findByIdAndDelete(storyId);
+    const deletedStory = await StoryType.findByIdAndDelete(typeId);
     if (!deletedStory) {
-      return res.status(404).json({ message: "Story not found" });
+      return res.status(404).json({ message: "typeId not found" });
     }
-    res.status(200).json({ message: ".Story deleted successfully" });
+    res.status(200).json({ message: ".type deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "error in deleting story", error });
+    res.status(500).json({ message: "error in deleting storyType", error });
   }
 };
