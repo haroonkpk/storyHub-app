@@ -36,7 +36,7 @@ export default function Card({ arr, index }) {
         transition={{ delay: 0.5, duration: 0.6 }}
         className="text-gray-600"
       >
-        {arr.description}
+        {arr.description?.split(" ").slice(0, 6).join(" ")}...
       </motion.p>
     </motion.div>
   );

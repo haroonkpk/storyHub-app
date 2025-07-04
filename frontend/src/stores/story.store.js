@@ -43,6 +43,7 @@ export const useStoryStore = create((set) => ({
   },
   getEpisodesByStoryId: async (storyID) => {
     set({ loading: true });
+    set({ episodes: [] });
     try {
       const res = await axiosInstance.get(`/story/episodes/${storyID}`);
       set({ episodes: res.data.episodes });
@@ -53,8 +54,15 @@ export const useStoryStore = create((set) => ({
     }
   },
   getEpisodeById: async (episodeId) => {
-    const res = await axiosInstance.get(`/story/episode/${episodeId}`);
-    set({ episode: res.data.episode });
+    set({ loading: true });
+    try {
+      const res = await axiosInstance.get(`/story/episode/${episodeId}`);
+      set({ episode: res.data.episode });
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      set({ loading: false });
+    }
   },
 
   // =============FunForCreation===========
@@ -71,6 +79,15 @@ export const useStoryStore = create((set) => ({
     try {
       await axiosInstance.post(`/story/story/${typeId}`, formData);
       toast.success("story Creted");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  },
+
+  createEpisodeByStoryId: async (formData, storyId) => {
+    try {
+      await axiosInstance.post(`/story/episode/${storyId}`, formData);
+      toast.success("Episode Creted");
     } catch (error) {
       toast.error(error.message);
     }

@@ -24,7 +24,7 @@ router.get("/episode/:episodeId", getEpisodeById);
 // create type, story and
 router.post("/storyTypes", protectedRoute, storyTypes);
 router.post("/story/:typeId", protectedRoute, story);
-router.post("/episodes/:storyId", protectedRoute, episodes);
+router.post("/episode/:storyId", protectedRoute, episodes);
 
 //deleete routes
 router.delete("/deleteStoryType/:id", protectedRoute, deleteStoryType);

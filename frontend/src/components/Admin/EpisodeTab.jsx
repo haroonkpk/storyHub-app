@@ -1,18 +1,40 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useStoryStore } from "../../stores/story.store";
+import toast from "react-hot-toast";
 
 const dummyEpisodes = [
   { _id: "1", title: "Episode 1: Shadow" },
   { _id: "2", title: "Episode 2: Whisper" },
 ];
 
-const dummyStories = [
-  { _id: "1", title: "Haunted House" },
-  { _id: "2", title: "Old Village" },
-];
-
 export default function EpisodeTab() {
   const [subTab, setSubTab] = useState("create");
+  const [storyId,setStoryId]=useState();
+  const[formData,setFormData]=useState({
+    title:"",
+    description:"",
+    img:"",
+  })
+  const { AllStories, createEpisodeByStoryId } = useStoryStore();
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select an image file");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFormData((prev) => ({ ...prev, img: reader.result }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handelSubmitForm = async (e) => {
+    e.preventDefault();
+    await createEpisodeByStoryId(formData, storyId);
+  };
 
   return (
     <div>
@@ -44,13 +66,17 @@ export default function EpisodeTab() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <form className="space-y-4">
+            <form onSubmit={handelSubmitForm} className="space-y-4">
               <h2 className="text-xl font-semibold">Add New Episode</h2>
-              <select className="select select-bordered w-full" required>
+              <select
+                onChange={(e) => setStoryId(e.target.value)}
+                className="select select-bordered w-full"
+                required
+              >
                 <option disabled selected>
                   Choose Story
                 </option>
-                {dummyStories.map((story) => (
+                {AllStories.map((story) => (
                   <option key={story._id} value={story._id}>
                     {story.title}
                   </option>
@@ -60,17 +86,29 @@ export default function EpisodeTab() {
                 type="text"
                 placeholder="Episode Title"
                 className="input input-bordered w-full"
+                value={formData.title}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, title: e.target.value }))
+                }
                 required
               />
               <input
                 type="file"
                 accept="image/*"
                 className="file-input file-input-bordered w-full"
+                onChange={handleImageChange}
                 required
               />
               <textarea
                 placeholder="Episode Description"
                 className="textarea textarea-bordered w-full"
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    description: e.target.value,
+                  }))
+                }
                 required
               ></textarea>
               <button type="submit" className="btn btn-primary">
