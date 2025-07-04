@@ -7,13 +7,14 @@ import { useStoryStore } from "../stores/story.store.js";
 
 export default function AdminTabsPanel() {
   const [activeTab, setActiveTab] = useState(0);
-  const { getStoryTypes, deleteCategory, getAllStories } =
+  const { getStoryTypes, getAllEpisodes, deleteCategory, getAllStories } =
     useStoryStore();
 
   useEffect(() => {
     getStoryTypes();
     getAllStories();
-  }, [deleteCategory,  getStoryTypes, getAllStories]);
+    getAllEpisodes();
+  }, [deleteCategory, getStoryTypes, getAllStories]);
 
   const tabs = ["Create Category", "Create Story", "Create Episode"];
 

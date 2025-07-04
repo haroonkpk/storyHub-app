@@ -8,6 +8,7 @@ export const useStoryStore = create((set) => ({
   selectedTypes: null,
   stories: [],
   AllStories: [],
+  AllEpisodes: [],
   episodes: [],
   episode: {},
   loading: false,
@@ -39,6 +40,20 @@ export const useStoryStore = create((set) => ({
       set({ AllStories: res.data.stories });
     } catch (error) {
       console.log("error in get story", error);
+    }
+  },
+  getAllEpisodes: async () => {
+    set({ loading: true });
+    try {
+      const res = await axiosInstance.get("/story/episodes");
+      console.log(res.data.episodes);
+
+      set({ AllEpisodes: res.data.episodes });
+    } catch (error) {
+      console.log("error in get Ep", error);
+    }finally{
+      set({ loading: false });
+
     }
   },
   getEpisodesByStoryId: async (storyID) => {
@@ -111,6 +126,17 @@ export const useStoryStore = create((set) => ({
       toast.success("story deleted");
     } catch (error) {
       toast.error(error.message);
+    }
+  },
+  deleteEpisodeById: async (episodeId) => {
+    set({ loading: true });
+    try {
+      await axiosInstance.delete(`/story/deleteEpisode/${episodeId}`);
+      toast.success("episode deleted");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      set({ loading: false });
     }
   },
 }));

@@ -3,20 +3,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useStoryStore } from "../../stores/story.store";
 import toast from "react-hot-toast";
 
-const dummyEpisodes = [
-  { _id: "1", title: "Episode 1: Shadow" },
-  { _id: "2", title: "Episode 2: Whisper" },
-];
-
 export default function EpisodeTab() {
   const [subTab, setSubTab] = useState("create");
-  const [storyId,setStoryId]=useState();
-  const[formData,setFormData]=useState({
-    title:"",
-    description:"",
-    img:"",
-  })
-  const { AllStories, createEpisodeByStoryId } = useStoryStore();
+  const [storyId, setStoryId] = useState();
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    img: "",
+  });
+  const {
+    AllStories,
+    createEpisodeByStoryId,
+    getAllEpisodes,
+    deleteEpisodeById,
+    AllEpisodes,
+    loading,
+  } = useStoryStore();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -34,6 +36,11 @@ export default function EpisodeTab() {
   const handelSubmitForm = async (e) => {
     e.preventDefault();
     await createEpisodeByStoryId(formData, storyId);
+  };
+
+  const handelDelete = async (episodeId) => {
+    await deleteEpisodeById(episodeId);
+    getAllEpisodes();
   };
 
   return (
@@ -125,17 +132,39 @@ export default function EpisodeTab() {
             transition={{ duration: 0.3 }}
           >
             <h2 className="text-xl font-semibold mb-4">Delete Episodes</h2>
-            <ul className="space-y-2">
-              {dummyEpisodes.map((ep) => (
-                <li
-                  key={ep._id}
-                  className="flex justify-between items-center p-2 border rounded-md"
-                >
-                  <span>{ep.title}</span>
-                  <button className="btn btn-sm btn-error">Delete</button>
-                </li>
-              ))}
-            </ul>
+
+            {loading ? (
+              <ul className="space-y-2">
+                {[...Array(4)].map((_, i) => (
+                  <li
+                    key={i}
+                    className="flex justify-between items-center p-2 border rounded-md animate-pulse"
+                  >
+                    <div className="h-4 bg-gray-300 rounded w-1/3"></div>
+                    <div className="btn btn-sm btn-error opacity-50 pointer-events-none">
+                      Delete
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul className="space-y-2">
+                {AllEpisodes.map((ep) => (
+                  <li
+                    key={ep._id}
+                    className="flex justify-between items-center p-2 border rounded-md"
+                  >
+                    <span>{ep.title}</span>
+                    <button
+                      onClick={() => handelDelete(ep._id)}
+                      className="btn btn-sm btn-error"
+                    >
+                      Delete
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

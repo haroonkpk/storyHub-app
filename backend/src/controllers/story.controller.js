@@ -112,6 +112,7 @@ export const getStories = async (req, res) => {
     res.status(501).json({ message: "error in getStory route", error });
   }
 };
+
 export const getAllStories = async (req, res) => {
   try {
     const stories = await Story.find({});
@@ -126,6 +127,21 @@ export const getAllStories = async (req, res) => {
   } catch (error) {
     console.error("GetStory Error:", error.message);
     res.status(501).json({ message: "error in getStory route", error });
+  }
+};
+
+export const getAllEpisodes = async (req, res) => {
+  try {
+    const episodes = await Episode.find({});
+
+    if (episodes.length === 0) {
+      return res.status(404).json({ message: "No Episodes found " });
+    }
+
+    res.status(200).json({ episodes });
+  } catch (error) {
+    console.error("GetEp Error:", error.message);
+    res.status(501).json({ message: "error in getEp route", error });
   }
 };
 
@@ -180,7 +196,6 @@ export const deleteStoryType = async (req, res) => {
 
 export const deleteStory = async (req, res) => {
   const storyId = req.params.id;
-  console.log(storyId);
   try {
     const deletedStory = await Story.findByIdAndDelete(storyId);
     if (!deletedStory) {
@@ -189,5 +204,17 @@ export const deleteStory = async (req, res) => {
     res.status(200).json({ message: ".story deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "error in deleting story", error });
+  }
+};
+export const deleteEpisode = async (req, res) => {
+  const episodeId = req.params.id;
+  try {
+    const deletedEpisode = await Episode.findByIdAndDelete(episodeId);
+    if (!deletedEpisode) {
+      return res.status(404).json({ message: "episodeId not found" });
+    }
+    res.status(200).json({ message: "episode deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "error in deleting episode", error });
   }
 };
