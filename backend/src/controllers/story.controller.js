@@ -6,20 +6,20 @@ import cloudinary from "../lib/cloudinary.js";
 
 export const storyTypes = async (req, res) => {
   const { img, title, description } = req.body;
-  
+
   if (!img || !title || !description) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   let imagUrl;
-          if(img){
-              const uploadResponse = await cloudinary.uploader.upload(img);
-              imagUrl = uploadResponse.secure_url;
-          }
+  if (img) {
+    const uploadResponse = await cloudinary.uploader.upload(img);
+    imagUrl = uploadResponse.secure_url;
+  }
 
   try {
     const Type = new StoryType({
-      img:imagUrl,
+      img: imagUrl,
       title,
       description,
     });
@@ -112,6 +112,22 @@ export const getStories = async (req, res) => {
     res.status(501).json({ message: "error in getStory route", error });
   }
 };
+export const getAllStories = async (req, res) => {
+  try {
+    const stories = await Story.find({});
+
+    if (stories.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No stories found for this type" });
+    }
+
+    res.status(200).json({ stories });
+  } catch (error) {
+    console.error("GetStory Error:", error.message);
+    res.status(501).json({ message: "error in getStory route", error });
+  }
+};
 
 export const getEpisodes = async (req, res) => {
   const { storyId } = req.params;
@@ -147,6 +163,7 @@ export const getEpisodeById = async (req, res) => {
   }
 };
 
+// =======deletion================
 export const deleteStoryType = async (req, res) => {
   const typeId = req.params.id;
   console.log(typeId);
@@ -158,5 +175,19 @@ export const deleteStoryType = async (req, res) => {
     res.status(200).json({ message: ".type deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "error in deleting storyType", error });
+  }
+};
+
+export const deleteStory = async (req, res) => {
+  const storyId = req.params.id;
+  console.log(storyId);
+  try {
+    const deletedStory = await Story.findByIdAndDelete(storyId);
+    if (!deletedStory) {
+      return res.status(404).json({ message: "storyId not found" });
+    }
+    res.status(200).json({ message: ".story deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "error in deleting story", error });
   }
 };

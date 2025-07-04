@@ -1,21 +1,23 @@
-import StoryCard from "../components/storyCard.jsx";
 import { useStoryStore } from "../stores/story.store.js";
 import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import EpisodeCard from "../components/EpisodeCard.jsx";
 import { ArrowLeft } from "lucide-react";
+import SkeletonCard from "../components/SkeletonCard.jsx";
+import Card from "../components/Card.jsx";
 
 export default function StoryBox() {
   const { typeId } = useParams();
-  const { getStoriesByTypeId, stories } = useStoryStore();
+  const { getStoriesByTypeId, stories, loading } = useStoryStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getStoriesByTypeId(typeId);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [typeId]);
 
-  const navigate = useNavigate();
+  // if (loading) return <StoryLoader />;
+
   return (
     <div className="w-full p-6 bg-base-300">
       <div className="flex justify-center items-center">
@@ -33,7 +35,6 @@ export default function StoryBox() {
               } else {
                 navigate("/");
               }
-              
             }}
             className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition"
           >
@@ -44,21 +45,30 @@ export default function StoryBox() {
         </li>
 
         <AnimatePresence>
-          {stories.map((type, index) => (
-            <motion.li
-              key={type._id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-            >
-              <Link to={`/episodes/${type._id}`}>
-                <div className="flex flex-wrap justify-items-center">
-                  <EpisodeCard episode={type} />
-                </div>
-              </Link>
-            </motion.li>
-          ))}
+          {loading ? (
+            <>
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+            </>
+          ) : (
+            stories.map((type, index) => (
+              <motion.li
+                key={type._id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <Link to={`/episodes/${type._id}`}>
+                  <div className="flex flex-wrap justify-items-center">
+                    <Card arr={type} />
+                  </div>
+                </Link>
+              </motion.li>
+            ))
+          )}
         </AnimatePresence>
       </ul>
     </div>

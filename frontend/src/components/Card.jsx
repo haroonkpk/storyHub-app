@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 
-export default function EpisodeCard({ episode, index }) {
+export default function Card({ arr, index }) {
   return (
     <motion.div
-      className="bg-base-200 rounded-2xl relative shadow-md p-4 max-w-md w-full"
+      className="w-full max-w-full bg-base-200 rounded-2xl relative shadow-md p-4 sm:max-w-md"
       whileHover={{ scale: 1.03 }}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
@@ -13,8 +13,8 @@ export default function EpisodeCard({ episode, index }) {
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.6 }}
-        src={episode.img}
-        alt={episode.title}
+        src={arr.img}
+        alt={arr.title}
         className="w-full h-48 object-cover rounded-xl mb-4"
       />
       {index >= 0 && (
@@ -28,7 +28,7 @@ export default function EpisodeCard({ episode, index }) {
         transition={{ delay: 0.5, duration: 0.6 }}
         className="text-xl font-bold mb-2"
       >
-        {episode.title}
+        {arr.title}
       </motion.h2>
       <motion.p
         initial={{ opacity: 0, x: 30 }}
@@ -36,7 +36,7 @@ export default function EpisodeCard({ episode, index }) {
         transition={{ delay: 0.5, duration: 0.6 }}
         className="text-gray-600"
       >
-        {episode.description}
+        {arr.description}
       </motion.p>
     </motion.div>
   );

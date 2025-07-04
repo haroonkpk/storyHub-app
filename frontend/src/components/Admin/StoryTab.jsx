@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStoryStore } from "../../stores/story.store";
-const dummyStories = [
-  { _id: "1", title: "Ghost in the Wall" },
-  { _id: "2", title: "Mountain Curse" },
-];
 
 export default function StoryTab() {
   const [subTab, setSubTab] = useState("create");
   const [typeId, setTypeId] = useState();
 
-  const { getStoryTypes, storyTypes, createStoryByCategoryId } =
-    useStoryStore();
+  const {
+    storyTypes,
+    getAllStories,
+    AllStories,
+    createStoryByCategoryId,
+    deleteStoryById,
+  } = useStoryStore();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -35,6 +36,11 @@ export default function StoryTab() {
   const handelSubmitForm = async (e) => {
     e.preventDefault();
     await createStoryByCategoryId(formData, typeId);
+  };
+
+  const handelDelete = async (storyId) => {
+    await deleteStoryById(storyId);
+    getAllStories();
   };
 
   return (
@@ -126,13 +132,18 @@ export default function StoryTab() {
           >
             <h2 className="text-xl font-semibold mb-4">Delete Stories</h2>
             <ul className="space-y-2">
-              {dummyStories.map((story) => (
+              {AllStories.map((story) => (
                 <li
                   key={story._id}
                   className="flex justify-between items-center p-2 border rounded-md"
                 >
                   <span>{story.title}</span>
-                  <button className="btn btn-sm btn-error">Delete</button>
+                  <button
+                    onClick={() => handelDelete(story._id)}
+                    className="btn btn-sm btn-error"
+                  >
+                    Delete
+                  </button>
                 </li>
               ))}
             </ul>

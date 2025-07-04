@@ -15,12 +15,16 @@ import Admin from "./pages/Admin.jsx";
 import StoriesPage from "./pages/StoriesPage.jsx";
 import EpisodePage from "./pages/EpisodePage.jsx";
 import EpisodeDetail from "./pages/EpisodeDetail.jsx";
+import StoryLoader from "./components/StoryLoader.jsx";
+import { useStore } from "zustand";
+import { useStoryStore } from "./stores/story.store.js";
 
 function App() {
   const location = useLocation();
 
   const { authUser, checkingAuth, isCheckingAuth } = useAuthStore();
   const { theme } = useThemeStore();
+  const { loading } = useStoryStore();
 
   useEffect(() => {
     document.querySelector("html").setAttribute("data-theme", theme);
@@ -30,12 +34,7 @@ function App() {
     checkingAuth();
   }, [checkingAuth]);
 
-  if (isCheckingAuth)
-    return (
-      <div className="flex justify-center items-center w-full h-screen">
-        <LoaderPinwheel className="size-10 animate-spin duration-100" />
-      </div>
-    );
+  if (isCheckingAuth) return <StoryLoader />;
   return (
     <div className="min-h-screen bg-base-200 relative overflow-auto">
       <Navbar />

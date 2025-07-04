@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useStoryStore } from "../stores/story.store";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import EpisodeCard from "../components/EpisodeCard";
 import { ArrowLeft } from "lucide-react";
+import Card from "../components/Card";
 
 export default function EpisodePage() {
   const { storyId } = useParams();
@@ -72,10 +72,10 @@ export default function EpisodePage() {
             <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
               {episodes.map((episode, index) => (
                 <Link to={`/episode/${episode._id}`}>
-                  <EpisodeCard
+                  <Card
                     key={episode._id}
                     index={index}
-                    episode={episode}
+                    arr={episode}
                   />
                 </Link>
               ))}
@@ -85,21 +85,4 @@ export default function EpisodePage() {
       )}
     </div>
   );
-}
-
-{
-  /* <div className="absolute top-2 left-2 bg-purple-600 text-white rounded-full px-2 py-1 text-xs font-semibold">
-  Ep {idx + 1}
-</div>; */
-}
-
-{
-  /* <div className="min-h-screen  py-10 px-4">
-            <h1 className="text-3xl font-bold text-center mb-8">Episodes</h1>
-            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
-              {episodes.map((episode) => (
-                <EpisodeCard key={episode._id} episode={episode} />
-              ))}
-            </div>
-          </div> */
 }

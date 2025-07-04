@@ -7,8 +7,10 @@ export const useStoryStore = create((set) => ({
   storyTypes: [],
   selectedTypes: null,
   stories: [],
+  AllStories: [],
   episodes: [],
   episode: {},
+  loading: false,
 
   // ============funForStates=========
   getStoryTypes: async () => {
@@ -19,19 +21,36 @@ export const useStoryStore = create((set) => ({
       console.log("error in get storytypes");
     }
   },
-
   getStoriesByTypeId: async (typeId) => {
+    set({ loading: true });
     try {
       const res = await axiosInstance.get(`/story/stories/${typeId}`);
       set({ stories: res.data.stories });
     } catch (error) {
+      set({ stories: [] });
+      console.log("error in get story", error);
+    } finally {
+      set({ loading: false });
+    }
+  },
+  getAllStories: async () => {
+    try {
+      const res = await axiosInstance.get("/story/stories");
+      set({ AllStories: res.data.stories });
+    } catch (error) {
       console.log("error in get story", error);
     }
   },
-
   getEpisodesByStoryId: async (storyID) => {
-    const res = await axiosInstance.get(`/story/episodes/${storyID}`);
-    set({ episodes: res.data.episodes });
+    set({ loading: true });
+    try {
+      const res = await axiosInstance.get(`/story/episodes/${storyID}`);
+      set({ episodes: res.data.episodes });
+      set({ loading: false });
+    } catch (error) {
+      set({ loading: false });
+      toast.error(error.message);
+    }
   },
   getEpisodeById: async (episodeId) => {
     const res = await axiosInstance.get(`/story/episode/${episodeId}`);
@@ -48,8 +67,6 @@ export const useStoryStore = create((set) => ({
       toast.error(error.message);
     }
   },
-  
-
   createStoryByCategoryId: async (formData, typeId) => {
     try {
       await axiosInstance.post(`/story/story/${typeId}`, formData);
@@ -66,6 +83,15 @@ export const useStoryStore = create((set) => ({
         `/story/deleteStoryType/${storyTypeId}`
       );
       toast.success("Type deleted");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  },
+
+  deleteStoryById: async (storyId) => {
+    try {
+      const res = await axiosInstance.delete(`/story/deleteStory/${storyId}`);
+      toast.success("story deleted");
     } catch (error) {
       toast.error(error.message);
     }
