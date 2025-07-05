@@ -12,7 +12,7 @@ export default function EpisodePage() {
 
   useEffect(() => {
     getEpisodesByStoryId(storyId);
-  }, [storyId]);
+  }, []);
 
   const handleGoBack = () => {
     if (window.history.length > 2) {
@@ -35,16 +35,18 @@ export default function EpisodePage() {
           <ArrowLeft className="w-5 h-5" />
           Go Back
         </button>
-        {!loading && <span>{episodes.length} episodes</span>}
+        <span>{episodes?.length || 0} episodes</span>
       </div>
 
-      {loading ? (
+      {loading || episodes === null ? (
+        // Skeleton while loading or when episodes are not fetched yet
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, index) => (
             <SkeletonCard key={index} />
           ))}
         </div>
       ) : episodes.length === 0 ? (
+        // No episodes found
         <div className="flex flex-col justify-center items-center text-center py-10">
           <img
             src="https://cdn-icons-png.flaticon.com/512/4076/4076504.png"
@@ -60,6 +62,7 @@ export default function EpisodePage() {
           </p>
         </div>
       ) : (
+        // Episodes list
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {episodes.map((episode, index) => (
             <Link to={`/episode/${episode._id}`} key={episode._id}>

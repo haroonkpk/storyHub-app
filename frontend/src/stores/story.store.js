@@ -9,7 +9,7 @@ export const useStoryStore = create((set) => ({
   stories: [],
   AllStories: [],
   AllEpisodes: [],
-  episodes: [],
+  episodes: null,
   episode: {},
   loading: false,
 
@@ -58,7 +58,6 @@ export const useStoryStore = create((set) => ({
   },
   getEpisodesByStoryId: async (storyID) => {
     set({ loading: true });
-    set({ episodes: [] });
     try {
       const res = await axiosInstance.get(`/story/episodes/${storyID}`);
       set({ episodes: res.data.episodes });
@@ -68,6 +67,7 @@ export const useStoryStore = create((set) => ({
       toast.error(error.message);
     }
   },
+
   getEpisodeById: async (episodeId) => {
     set({ loading: true });
     try {

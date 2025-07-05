@@ -11,7 +11,7 @@ export default function StoryBox() {
   }, []);
 
   return (
-    <div className="bg-base-300 p-3 rounded-box sm:shadow-md w-full max-w-6xl sm:p-6">
+    <div className="w-full bg-base-300 p-3 rounded-box sm:shadow-md max-w-6xl sm:p-6">
       <div className="flex justify-center items-center">
         <h1 className="text-3xl font-bold mb-4 sm:mb-0">Type of stories</h1>
       </div>
