@@ -13,6 +13,7 @@ export const useStoryStore = create((set) => ({
   favorites: [],
   episode: {},
   loading: false,
+  loadingForIcon:false,
 
   // ============funForStates=========
   getStoryTypes: async () => {
@@ -116,13 +117,20 @@ export const useStoryStore = create((set) => ({
       toast.error(error.message);
     }
   },
-  addToFavorites: async (storyId) => {
 
+  addToFavorites: async (storyId) => {
+    set({ loadingForIcon: true });
     try {
       const res = await axiosInstance.post(`/favorites/${storyId}`);
+      // Refresh favorites list from server after successful add
+      const response = await axiosInstance.get("/favorites/");
+      set({ favorites: response.data.favorites });
       toast.success(res.data.message);
     } catch (error) {
       toast.error(error.message);
+    }finally{
+      set({ loadingForIcon: false });
+
     }
   },
 
@@ -158,11 +166,14 @@ export const useStoryStore = create((set) => ({
   },
   removeFavorite: async (storyId) => {
     set({ loading: true });
-
     try {
       const res = await axiosInstance.delete("/favorites/", {
         data: { storyId },
       });
+      // Refresh favorites list from server after successful add
+      const response = await axiosInstance.get("/favorites/");
+      set({ favorites: response.data.favorites });
+
       toast.success("itm removed");
     } catch (error) {
       toast.error(error.message);

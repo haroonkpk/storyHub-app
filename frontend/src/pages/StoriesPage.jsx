@@ -8,8 +8,15 @@ import Card from "../components/Card.jsx";
 
 export default function StoryBox() {
   const { typeId } = useParams();
-  const { getStoriesByTypeId, stories, loading, addToFavorites } =
-    useStoryStore();
+  const {
+    getStoriesByTypeId,
+    getAddToFavotrites,
+    stories,
+    favorites,
+    loading,
+    loadingForIcon,
+    addToFavorites,
+  } = useStoryStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,11 +82,9 @@ export default function StoryBox() {
                     transition={{ duration: 0.2 }}
                     className="absolute bottom-3 right-3 text-red-500"
                   >
-                    {false ? (
-                      <Heart fill="red" className="text-red-500" />
-                    ) : (
-                      <Heart />
-                    )}
+                    <Heart
+                      className={`${loadingForIcon ? "animate-pulse" : ""}`}
+                    />
                   </motion.button>
                 </div>
               </motion.li>
