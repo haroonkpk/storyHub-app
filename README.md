@@ -5,13 +5,11 @@
 ---
 
 ## 📁 Project Structure
----
-## storyHub/
+### storyHub/
 - ├── backend/ # Express.js + MongoDB (API and Auth)
 - ├── frontend/ # React + TailwindCSS + Zustand (User Interface)
 - ├── package.json # Root-level config
 
----
 ---
 
 ## 🚀 Tech Stack
@@ -50,7 +48,7 @@ cd storyHub
 npm install
 ```
 
-## Environment Variables
+## 3. Environment Variables
 
 ### Backend: Create a .env file in the backend/.env
 ```
@@ -62,7 +60,7 @@ CLOUDINARY_CLOUD_NAME=your cloud name
 CLOUDINARY_API_KEY=your cloudnary api key
 CLOUDINARY_API_your cloudnary api
 ```
-## Run the App
+## 4. Run the App
 ### Start Backend
 ```bash
 cd backend
@@ -70,7 +68,7 @@ npm run dev
 ```
 Make sure MongoDB is running locally or in the cloud (MongoDB Atlas).
 
-## Start Frontend
+## 5. Start Frontend
 ```bash
 cd frontend
 npm run dev
@@ -91,7 +89,7 @@ npm run dev
 
 - 🧑‍💻 Admin support (can add/edit stories)
 
-- 🛠️ Folder Details
+# 🛠️ Folder Details
 ### backend/
 - Express.js server
 
@@ -123,4 +121,3 @@ npm run dev
 - 🤖 AI Story Telling: Generate new stories or episodes using AI based on selected categories
 
 
----
