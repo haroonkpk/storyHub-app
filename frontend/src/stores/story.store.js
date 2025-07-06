@@ -10,6 +10,7 @@ export const useStoryStore = create((set) => ({
   AllStories: [],
   AllEpisodes: [],
   episodes: null,
+  favorites: [],
   episode: {},
   loading: false,
 
@@ -51,9 +52,8 @@ export const useStoryStore = create((set) => ({
       set({ AllEpisodes: res.data.episodes });
     } catch (error) {
       console.log("error in get Ep", error);
-    }finally{
+    } finally {
       set({ loading: false });
-
     }
   },
   getEpisodesByStoryId: async (storyID) => {
@@ -67,7 +67,6 @@ export const useStoryStore = create((set) => ({
       toast.error(error.message);
     }
   },
-
   getEpisodeById: async (episodeId) => {
     set({ loading: true });
     try {
@@ -75,6 +74,17 @@ export const useStoryStore = create((set) => ({
       set({ episode: res.data.episode });
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      set({ loading: false });
+    }
+  },
+  getAddToFavotrites: async () => {
+    set({ loading: true });
+    try {
+      const res = await axiosInstance.get("/favorites/");
+      set({ favorites: res.data.favorites });
+    } catch (error) {
+      console.log("error in get story", error);
     } finally {
       set({ loading: false });
     }
@@ -98,11 +108,19 @@ export const useStoryStore = create((set) => ({
       toast.error(error.message);
     }
   },
-
   createEpisodeByStoryId: async (formData, storyId) => {
     try {
       await axiosInstance.post(`/story/episode/${storyId}`, formData);
       toast.success("Episode Creted");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  },
+  addToFavorites: async (storyId) => {
+
+    try {
+      const res = await axiosInstance.post(`/favorites/${storyId}`);
+      toast.success(res.data.message);
     } catch (error) {
       toast.error(error.message);
     }
@@ -119,7 +137,6 @@ export const useStoryStore = create((set) => ({
       toast.error(error.message);
     }
   },
-
   deleteStoryById: async (storyId) => {
     try {
       const res = await axiosInstance.delete(`/story/deleteStory/${storyId}`);
@@ -133,6 +150,20 @@ export const useStoryStore = create((set) => ({
     try {
       await axiosInstance.delete(`/story/deleteEpisode/${episodeId}`);
       toast.success("episode deleted");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      set({ loading: false });
+    }
+  },
+  removeFavorite: async (storyId) => {
+    set({ loading: true });
+
+    try {
+      const res = await axiosInstance.delete("/favorites/", {
+        data: { storyId },
+      });
+      toast.success("itm removed");
     } catch (error) {
       toast.error(error.message);
     } finally {

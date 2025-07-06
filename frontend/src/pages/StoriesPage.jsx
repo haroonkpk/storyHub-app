@@ -2,21 +2,20 @@ import { useStoryStore } from "../stores/story.store.js";
 import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Heart } from "lucide-react";
 import SkeletonCard from "../components/SkeletonCard.jsx";
 import Card from "../components/Card.jsx";
 
 export default function StoryBox() {
   const { typeId } = useParams();
-  const { getStoriesByTypeId, stories, loading } = useStoryStore();
+  const { getStoriesByTypeId, stories, loading, addToFavorites } =
+    useStoryStore();
   const navigate = useNavigate();
 
   useEffect(() => {
     getStoriesByTypeId(typeId);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [typeId]);
-
-  // if (loading) return <StoryLoader />;
 
   return (
     <div className="w-full p-6 bg-base-300">
@@ -61,11 +60,28 @@ export default function StoryBox() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Link to={`/episodes/${type._id}`}>
-                  <div className="flex flex-wrap justify-items-center">
-                    <Card arr={type} />
-                  </div>
-                </Link>
+                <div className="relative">
+                  <Link to={`/episodes/${type._id}`}>
+                    <div className="flex flex-wrap justify-items-center">
+                      <Card arr={type} />
+                    </div>
+                  </Link>
+
+                  {/* favorite button */}
+                  <motion.button
+                    onClick={() => addToFavorites(type._id)}
+                    whileHover={{ scale: 1.4 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute bottom-3 right-3 text-red-500"
+                  >
+                    {false ? (
+                      <Heart fill="red" className="text-red-500" />
+                    ) : (
+                      <Heart />
+                    )}
+                  </motion.button>
+                </div>
               </motion.li>
             ))
           )}

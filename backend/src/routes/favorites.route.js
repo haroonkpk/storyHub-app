@@ -11,5 +11,4 @@ router.post("/:storyId", protectedRoute, addToFavorites);
 router.get("/", protectedRoute, getFavorites);
 router.delete("/", protectedRoute, deleteFavorites);
 
-
 export default router;

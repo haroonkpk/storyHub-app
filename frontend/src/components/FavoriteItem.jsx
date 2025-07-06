@@ -1,12 +1,9 @@
 import { X } from "lucide-react";
+import { useStoryStore } from "../stores/story.store";
+import { useEffect } from "react";
 
-export default function FavoriteItem({
-  img,
-  title,
-  desc,
-  isLoading,
-  onRemove,
-}) {
+export default function FavoriteItem({ storyId, img, title, desc, isLoading }) {
+  const { removeFavorite,addToFavorites, getAddToFavotrites } = useStoryStore();
   if (isLoading) {
     return (
       <div className="flex gap-4 items-start animate-pulse p-3 rounded-xl bg-gray-100">
@@ -19,6 +16,12 @@ export default function FavoriteItem({
     );
   }
 
+  useEffect(() => {}, [addToFavorites]);
+  const handleremove = async () => {
+    await removeFavorite(storyId);
+    await getAddToFavotrites();
+  };
+
   return (
     <div className="flex gap-4 items-start bg-base-200 p-3 rounded-xl shadow-sm relative group">
       <img
@@ -27,13 +30,13 @@ export default function FavoriteItem({
         className="w-16 h-16 object-cover rounded-md"
       />
       <div className="flex-1">
-        <h3 className="font-semibold text-sm">{title}</h3>
+        <h3 className="font-semibold">{title}</h3>
         <p className="text-xs">{desc}</p>
       </div>
 
       {/* ❌ Remove Icon Button */}
       <button
-        onClick={onRemove}
+        onClick={handleremove}
         className="absolute top-2 right-2 p-1 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-100 transition"
       >
         <X size={16} />

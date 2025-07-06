@@ -3,29 +3,16 @@ import { useAuthStore } from "../stores/auth.store.js";
 import FavoriteItem from "./FavoriteItem.jsx";
 import LogoutConfirmDialog from "./LogoutConfirmDialog.jsx";
 import { useEffect, useState } from "react";
+import { useStoryStore } from "../stores/story.store.js";
 
 export default function Profile() {
   const { authUser, LogOut } = useAuthStore();
-  const [favorites, setFavorites] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { getAddToFavotrites, favorites, loading } = useStoryStore();
   const [showConfirm, setShowConfirm] = useState(false);
+  
 
   useEffect(() => {
-    setTimeout(() => {
-      setFavorites([
-        {
-          img: "/gar.jpg",
-          title: "Store 1",
-          desc: "Best gadgets here",
-        },
-        {
-          img: "/bot.jpg",
-          title: "Store 2",
-          desc: "Top rated books",
-        },
-      ]);
-      setLoading(false);
-    }, 1500);
+    getAddToFavotrites();
   }, []);
 
   return (
@@ -40,22 +27,31 @@ export default function Profile() {
         <div className="mb-4">
           <h2 className="font-bold text-lg">
             <span className="text-xl">{authUser.username}</span>{" "}
-            <span className="text-sm text-gray-600">
-              your favorite stories are here
-            </span>
+            <span className="text-sm text-gray-600">Your favorite stories</span>
           </h2>
         </div>
 
         <div className="space-y-3">
-          {(loading ? Array(4).fill({}) : favorites).map((item, i) => (
-            <FavoriteItem
-              key={i}
-              img={item.img}
-              title={item.title}
-              desc={item.desc}
-              isLoading={loading}
-            />
-          ))}
+          {loading ? (
+            Array(4)
+              .fill({})
+              .map((_, i) => <FavoriteItem key={i} isLoading={true} />)
+          ) : favorites.length === 0 ? (
+            <div className="text-center text-gray-500 py-4">
+              No favorite stories yet.
+            </div>
+          ) : (
+            favorites.map((item, i) => (
+              <FavoriteItem
+                key={i}
+                storyId={item.story?._id}
+                img={item.story?.img}
+                title={item.story?.title}
+                desc={item.story?.type?.title}
+                isLoading={loading}
+              />
+            ))
+          )}
         </div>
 
         {/* 🔻 Moved logout button to bottom */}

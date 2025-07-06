@@ -38,6 +38,7 @@ function App() {
   return (
     <div className="min-h-screen bg-base-200 relative overflow-auto">
       <Navbar />
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
