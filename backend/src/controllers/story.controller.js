@@ -53,7 +53,8 @@ export const story = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "error in creating story", error });
   }
-};
+}; 
+
 
 export const episodes = async (req, res) => {
   const { img, title, description } = req.body;
@@ -193,7 +194,6 @@ export const deleteStoryType = async (req, res) => {
     res.status(500).json({ message: "error in deleting storyType", error });
   }
 };
-
 export const deleteStory = async (req, res) => {
   const storyId = req.params.id;
   try {
