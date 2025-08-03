@@ -1,7 +1,5 @@
 import StoryBox from "../components/StoryTypesBox";
 import { useRef } from "react";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-
 
 export default function HomePage() {
   const storyRef = useRef(null);
