@@ -152,7 +152,9 @@ export const getEpisodes = async (req, res) => {
     return res.status(404).json({ message: "Not found storyId" });
   }
   try {
-    const episodes = await Episode.find({ story: storyId });
+    const episodes = await Episode.find({ story: storyId }).select(
+      "-description"
+    );
     if (!episodes) {
       return res.status(404).json({ message: "episodes not found" });
     }

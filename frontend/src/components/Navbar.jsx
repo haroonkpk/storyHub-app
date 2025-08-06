@@ -13,7 +13,7 @@ export default function Navbar() {
       <nav className=" w-full  p-2 rounded-lg shadow-md">
         <div className="container sm:mx-auto flex justify-between items-center">
           {/* Left Side */}
-          <div className="hidden sm:block flex items-center space-x-4">
+          <div className="hidden sm:flex items-center space-x-4">
             <Link to="/">
               <button className=" flex items-center  space-x-2 rounded-2xl btn-ghost btn transition-all">
                 <Feather size={20} /> <span>StoryHub</span>
@@ -38,25 +38,23 @@ export default function Navbar() {
                 className="flex items-center rounded-2xl space-x-2 btn-ghost btn transition-all mr-2.5"
               >
                 <ContactRound size={20} />{" "}
-                
                 <span className="hidden sm:block">about</span>
               </button>
             </Link>
 
             {authUser ? (
               <>
-                
-                  <button
-                    variant="ghost"
-                    className="flex items-center space-x-2 btn-ghost btn transition-all mr-2.5 rounded-2xl"
-                    onClick={() =>
-                      document.getElementById("my_modal_3").showModal()
-                    }
-                  >
-                    <UserCircle size={20} />{" "}
-                    <span className="hidden sm:block">Profile</span>
-                  </button>
-                
+                <button
+                  variant="ghost"
+                  className="flex items-center space-x-2 btn-ghost btn transition-all mr-2.5 rounded-2xl"
+                  onClick={() =>
+                    document.getElementById("my_modal_3").showModal()
+                  }
+                >
+                  <UserCircle size={20} />{" "}
+                  <span className="hidden sm:block">Profile</span>
+                </button>
+
                 <Profile />
                 {authUser?.role === "admin" && (
                   <Link to="/admin-dashboard">
@@ -86,7 +84,7 @@ export default function Navbar() {
               {/* this hidden checkbox controls the state */}
               <input
                 type="checkbox"
-                checked={theme === "dracula"}
+                checked={theme === "coffee"}
                 onChange={toggleTheme}
               />
 

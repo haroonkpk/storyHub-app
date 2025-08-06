@@ -13,7 +13,7 @@ export default function HomePage() {
       <div className="hero min-h-screen">
         <div className="hero-content flex-col lg:flex-row-reverse max-w-6xl justify-center ">
             <img
-              src="/bot.jpg"
+              src="/img.jpg"
               draggable="false"
               className="lg:w-full sm:max-w-sm rounded-lg shadow-2xl select-none pointer-events-auto "
               alt="Bot"
