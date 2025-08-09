@@ -1,7 +1,8 @@
 import StoryBox from "../components/StoryTypesBox";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { BookOpen } from "lucide-react";
+import { BookOpen, ArrowRight } from "lucide-react";
+
 
 export default function HomePage() {
   const storyRef = useRef(null);
@@ -12,68 +13,59 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center">
       {/* HERO SECTION */}
-      <div className="relative min-h-screen w-full flex items-center justify-center bg-base-100 overflow-hidden px-4">
-        {/* Background gradient + vignette */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/20 via-base-100 to-base-200"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/20 pointer-events-none"></div>
+      <section className="relative overflow-hidden bg-base-200">
+        {/* Background Layers */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-base-300 opacity-40"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-base-100 via-transparent to-base-300 opacity-50"></div>
+        </div>
 
-        {/* Floating book icon (subtle animation) */}
-        <motion.div
-          className="absolute top-10 text-primary/40"
-          animate={{ y: [0, -8, 0] }}
-          transition={{ repeat: Infinity, duration: 3 }}
-        >
-          <BookOpen size={60} strokeWidth={1.2} />
-        </motion.div>
-
-        {/* Glassmorphism content card */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 w-full max-w-md rounded-2xl bg-base-100/60 backdrop-blur-xl border border-base-300 p-6 shadow-xl text-center"
-        >
-          <motion.h1
-            initial={{ opacity: 0, y: -30 }}
+        {/* Content */}
+        <div className="relative container mx-auto px-6 py-20 flex flex-col items-center text-center">
+          {/* Icon */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-3xl font-extrabold text-base-content leading-tight"
+            transition={{ duration: 0.6 }}
+            className="mb-6 p-4 bg-base-100 rounded-full shadow-lg"
           >
-            Step Into <span className="text-primary">A New Story</span>
+            <BookOpen className="w-10 h-10 text-primary" />
+          </motion.div>
+
+          {/* Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold text-base-content"
+          >
+            Welcome to <span className="text-primary">TellingStory Hub</span>
           </motion.h1>
 
+          {/* Subtext */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-3 text-base text-base-content/70"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mt-4 max-w-2xl text-lg text-base-content/70"
           >
-            Discover adventures, mysteries, and heartfelt tales — all in one
-            place, crafted to spark your imagination.
+            Dive into a world of captivating tales, where imagination meets
+            reality. Discover stories that inspire, entertain, and connect
+            hearts.
           </motion.p>
 
+          {/* Button */}
           <motion.button
-            onClick={scrollToStories}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="mt-6 w-full py-3 rounded-full bg-primary text-primary-content font-semibold shadow-lg hover:scale-[1.02] transition"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-8 btn btn-primary gap-2"
           >
             Start Reading
+            <ArrowRight className="w-4 h-4" />
           </motion.button>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-6 text-base-content/60 text-sm cursor-pointer flex flex-col items-center"
-          onClick={scrollToStories}
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-        >
-          ↓ Scroll
-        </motion.div>
-      </div>
+        </div>
+      </section>
 
       {/* STORY BOX SECTION */}
       <div ref={storyRef}>
