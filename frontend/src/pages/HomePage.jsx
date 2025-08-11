@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center justify-center">
       {/* HERO SECTION */}
-      <section className="w-full max-w-6xl relative overflow-hidden py-20 px-4 flex flex-col-reverse md:flex-row justify-between ">
+      <section className="w-full max-w-6xl relative overflow-hidden gap-5 pb-20 md:py-20  px-4 flex flex-col-reverse md:flex-row justify-between ">
         {/* Left Text Content */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
@@ -29,7 +29,7 @@ export default function HomePage() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight text-base-content">
+          <h1 className="text-2xl md:text-5xl font-extrabold leading-tight text-base-content">
             Discover <span className="text-primary">TellingStory Hub</span>
           </h1>
 
