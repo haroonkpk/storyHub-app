@@ -82,12 +82,11 @@ export default function HomePage() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            whileHover={{ rotate: 1, scale: 1.02 }}
             className="flex-1 flex justify-center relative"
           >
             <div className="absolute -z-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl"></div>
             <img
-              src="/img.jpg" // apna image path yahan dalna
+              src="/network-illustration.svg" // apna image path yahan dalna
               alt="Story illustration"
               className="max-w-sm rounded-2xl shadow-xl border-4 border-base-100"
             />

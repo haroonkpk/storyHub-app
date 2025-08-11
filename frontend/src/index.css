@@ -2,7 +2,7 @@
 @plugin "daisyui";
 
 @plugin "daisyui" {
-    themes: silk --default, coffee --preferscoffee;
+    themes: winter --default, dracula --prefersdracula;
 }
 
 input::placeholder {
