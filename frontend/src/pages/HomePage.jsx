@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center justify-center">
       {/* HERO SECTION */}
-      <section className="w-full max-w-6xl relative overflow-hidden py-20 px-4 flex flex-col md:flex-row justify-between ">
+      <section className="w-full max-w-6xl relative overflow-hidden py-20 px-4 flex flex-col-reverse md:flex-row justify-between ">
         {/* Left Text Content */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
@@ -74,7 +74,7 @@ export default function HomePage() {
       </section>
 
       {/* STORY BOX SECTION */}
-      <div ref={storyRef} className="w-full">
+      <div ref={storyRef} className="w-full flex justify-center">
         <StoryBox />
       </div>
     </div>
