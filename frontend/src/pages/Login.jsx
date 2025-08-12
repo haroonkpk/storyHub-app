@@ -1,6 +1,5 @@
 import { Eye, EyeOff, LoaderPinwheel } from "lucide-react";
 import { Link } from "react-router-dom";
-import VideoForSide from "../components/login.video";
 import { useAuthStore } from "../stores/auth.store.js";
 import { useState } from "react";
 
@@ -26,23 +25,6 @@ export default function Login() {
           onSubmit={handleSubmit}
           className="space-y-6 flex flex-col items-center"
         >
-          {/* avatar and welcome text */}
-          <div className="w-full space-x-2 h-auto flex items-center justify-center mb-8">
-            <div className="avatar w-15 h-15 rounded-full overflow-hidden">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZaKQUl9x5aZCEOPRhWwuBifvN_aklgRPSww&s"
-                alt=""
-              />
-            </div>
-            <div className="flex flex-col">
-              <div className="text-center ml-4">
-                <h1 className="text-2xl font-bold">Welcome Back!</h1>
-                <p className="text-gray-500 text-sm text-start">
-                  Please login to continue
-                </p>
-              </div>
-            </div>
-          </div>
           <h1 className="text-3xl font-bold">Login</h1>
 
           {/* fullName */}
@@ -111,7 +93,7 @@ export default function Login() {
           </label>
 
           <button
-            className="btn bg-amber-300 text-black   min-w-[3rem] max-w-full w-[20rem] mx-auto"
+            className="btn bg-primary font-extrabol text-white min-w-[3rem] max-w-full w-[20rem] mx-auto"
             type="submit"
           >
             {isLogining ? (
@@ -126,7 +108,7 @@ export default function Login() {
         </form>
         <div className="text-gray-500">
           Don'n have an account?{" "}
-          <Link to="/signup" className="link link-accent">
+          <Link to="/signup" className="link link-primary">
             SignUp
           </Link>
         </div>
@@ -140,8 +122,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-      {/* img */}
-      <VideoForSide />
     </div>
   );
 }

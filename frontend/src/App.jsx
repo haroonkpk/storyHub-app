@@ -1,12 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import AboutPage from "./pages/AboutPage";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import toast, { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./stores/auth.store.js";
 import { useEffect, useState } from "react";
-import { LoaderPinwheel } from "lucide-react";
 import Navbar from "./components/Navbar.jsx";
 import { useThemeStore } from "./stores/theme.store.js";
 import Footer from "./components/Footer.jsx";
@@ -52,7 +50,7 @@ function App() {
         <Route path="/stories/:typeId" element={<StoriesPage />} />
         <Route path="/episodes/:storyId" element={<EpisodePage />} />
 
-        <Route path="/about" element={<AboutPage />} />
+       
         <Route
           path="/admin-dashboard"
           element={authUser?.role === "admin" ? <Admin /> : <Navigate to="/" />}

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 export default function Card({ arr, index }) {
   return (
     <motion.div
-      className="w-full max-w-full bg-base-200 rounded-2xl relative shadow-md p-4 sm:max-w-md"
+      className="w-full max-w-full border-4 border-base-100 rounded-2xl relative shadow-md p-4 sm:max-w-md"
       whileHover={{ scale: 1.03 }}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}

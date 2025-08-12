@@ -50,7 +50,7 @@ export default function HomePage() {
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
-              className="btn btn-outline"
+              className="btn shadow-xs border-2 border-base-100 "
             >
               Learn More
             </motion.button>
@@ -62,9 +62,8 @@ export default function HomePage() {
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex-1 flex justify-center md:justify-end relative"
+          className="flex-1 flex justify-center md:justify-end transform -translate-y-7 md:-translate-y-0 relative"
         >
-          <div className="absolute -z-10 w-full h-full bg-primary/20 rounded-full blur-3xl"></div>
           <img
             src="/books.webp"
             alt="Story illustration"
