@@ -1,7 +1,7 @@
 import StoryBox from "../components/StoryTypesBox";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
-import { BookOpen, ArrowRight, Feather, Quote } from "lucide-react";
+import { BookOpen, ArrowRight } from "lucide-react";
 
 export default function HomePage() {
   const storyRef = useRef(null);
@@ -68,7 +68,7 @@ export default function HomePage() {
         >
           <img
             src="/books.webp"
-            alt="Story illustration"
+            alt="books image"
             className="md:max-w-sm rounded-2xl object-cover shadow-xl border-4 border-base-100"
           />
         </motion.div>
