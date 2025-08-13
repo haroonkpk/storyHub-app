@@ -9,7 +9,7 @@ export default function Navbar() {
   const { theme, toggleTheme } = useThemeStore();
 
   return (
-    <div className=" flex justify-center bg-transparent backdrop-blur-xs border-b-4 border-base-100 fixed bottom-0 md:top-0 md:bottom-auto w-full z-50">
+    <div className=" flex justify-center bg-transparent backdrop-blur-xl border-b-4 border-base-100 fixed bottom-0 md:top-0 md:bottom-auto w-full z-50">
       <nav className=" w-full  p-2 rounded-lg">
         <div className="container sm:mx-auto flex justify-between items-center">
           {/* Left Side */}
