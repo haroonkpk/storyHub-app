@@ -45,12 +45,14 @@ export default function HomePage() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               className="btn btn-primary gap-2"
+              onClick={scrollToStories}
             >
               Start Reading <ArrowRight className="w-4 h-4" />
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
               className="btn shadow-xs border-2 border-base-100 "
+              onClick={scrollToStories}
             >
               Learn More
             </motion.button>
