@@ -42,7 +42,7 @@ export default function AdminTabsPanel() {
       </div>
 
       {/* Tab content */}
-      <div className="min-h-[300px] bg-base-100 border border-base-300 rounded-xl p-6">
+      <div className="min-h-[300px]  border-4 border-base-100 rounded-xl p-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
