@@ -17,7 +17,7 @@ export default function Login() {
   }
 
   return (
-    <div className="w-full h-screen flex items-center">
+    <div className="w-full h-screen flex p-4 items-center">
       {/* signup */}
       <div className="w-full min-w-1/2 space-y-8 border-r-1 border-base-300 text-center mb-8">
         {/* form */}
