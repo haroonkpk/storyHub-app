@@ -20,7 +20,7 @@ export default function SignUp() {
   }
   console.log("Auth User:", authUser);
   return (
-    <div className="w-full h-screen flex items-center">
+    <div className="w-full h-screen flex p-4 items-center">
       {/* signup */}
       <div className="w-full min-w-1/2 space-y-8  text-center mb-8">
         {/* form */}
