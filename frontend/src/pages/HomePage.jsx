@@ -21,7 +21,7 @@ export default function HomePage() {
           className="flex-1 text-center md:text-left"
         >
           {/* Badge */}
-          <div className="mb-5 inline-flex items-center gap-2 px-4 py-2 bg-base-300 rounded-full shadow-sm">
+          <div className="mb-5 inline-flex items-center gap-2 px-4 py-2 border-2 border-base-100 rounded-full shadow-sm">
             <BookOpen className="w-5 h-5 text-primary" />
             <span className="text-sm font-medium tracking-wide">
               Your Story Starts Here
