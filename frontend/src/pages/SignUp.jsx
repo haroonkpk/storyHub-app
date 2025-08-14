@@ -22,7 +22,7 @@ export default function SignUp() {
   return (
     <div className="w-full h-screen flex items-center">
       {/* signup */}
-      <div className="w-full min-w-1/2 border-r-1 border-base-300 space-y-8  text-center mb-8">
+      <div className="w-full min-w-1/2 space-y-8  text-center mb-8">
         {/* form */}
         <form
           className="space-y-6 flex flex-col items-center"
