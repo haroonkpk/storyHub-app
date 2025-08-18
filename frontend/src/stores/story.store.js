@@ -5,7 +5,6 @@ import { toast } from "react-hot-toast";
 export const useStoryStore = create((set) => ({
   // ===========States===========
   storyTypes: [],
-  selectedTypes: null,
   stories: [],
   AllStories: [],
   AllEpisodes: [],

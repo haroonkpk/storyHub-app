@@ -10,13 +10,10 @@ export default function StoryBox() {
   const { typeId } = useParams();
   const {
     getStoriesByTypeId,
-    getAddToFavotrites,
     stories,
-    favorites,
     loading,
     loadingForIcon,
     addToFavorites,
-    selectedTypes,
   } = useStoryStore();
   const navigate = useNavigate();
 
@@ -25,7 +22,6 @@ export default function StoryBox() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [typeId]);
 
-  console.log(selectedTypes);
   return (
     <div className="w-full min-h-[70vh] p-6 md:mt-20">
       <div className="flex justify-center items-center">
