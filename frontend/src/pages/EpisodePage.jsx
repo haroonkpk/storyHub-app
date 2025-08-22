@@ -41,7 +41,7 @@ export default function EpisodePage() {
       {loading || episodes === null ? (
         // Skeleton while loading or when episodes are not fetched yet
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 3 }).map((_, index) => (
+          {Array.from({ length: 6 }).map((_, index) => (
             <SkeletonCard key={index} />
           ))}
         </div>
