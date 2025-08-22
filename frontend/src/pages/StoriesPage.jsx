@@ -55,6 +55,10 @@ export default function StoryBox() {
               <SkeletonCard />
               <SkeletonCard />
               <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
+              <SkeletonCard />
             </>
           ) : (
             stories.map((type, index) => (
