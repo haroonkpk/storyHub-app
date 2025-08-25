@@ -35,9 +35,9 @@ export default function HomePage() {
 
           {/* Subtext */}
           <p className="mt-4 text-lg text-base-content/70 max-w-lg">
-            A place where imagination flows freely. Share your tales, read
-            others’ journeys, and explore endless narratives that inspire and
-            connect.
+            Every story is a doorway to a new world. Here, you don’t just read
+            tales—you become part of emotions, journeys, and mysteries. Choose
+            your favorite story and enjoy the adventure woven in words
           </p>
 
           {/* Buttons */}
