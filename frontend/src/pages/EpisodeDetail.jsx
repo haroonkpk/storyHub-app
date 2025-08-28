@@ -65,7 +65,7 @@ export default function EpisodeDetail() {
         transition={{ duration: 0.4 }}
         className=" flex bg-base-100 rounded-xl shadow-lg overflow-hidden"
       >
-        <div className="p-4">
+        <div className="p-4 flex flex-col md:flex-row md:justify-between">
 
           {/* Image */}
             <img
