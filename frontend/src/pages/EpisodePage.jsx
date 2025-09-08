@@ -24,7 +24,7 @@ export default function EpisodePage() {
   };
 
   return (
-    <div className="min-h-screen bg-base-300 py-10 px-4">
+    <div className="min-h-screen bg-base-300 py-10 sm:py-20 px-4">
       <h1 className="text-3xl font-bold text-center mb-8">Episodes</h1>
 
       <div className="flex mb-6 items-center gap-4 p-1 pb-2 text-xs opacity-60 tracking-wide">
